@@ -22,10 +22,17 @@ function animate() {
     const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const locations = getLocationsWithColor(imgData, { r: 255, g: 0, b: 0 });
 
-    ctx.fillStyle = "yellow";
-    locations.forEach(loc => {
-        ctx.fillRect(loc.x, loc.y, 1, 1);
-    })
+    if (locations.length > 0) {
+        const center = average(locations);
+
+        ctx.beginPath();
+        ctx.strokeStyle = "yellow";
+        ctx.lineWidth = 5;
+        ctx.moveTo(0, center.y);
+        ctx.lineTo(canvas.width, center.y);
+        ctx.stroke();
+    }
+
     requestAnimationFrame(animate);
 }
 
@@ -61,4 +68,20 @@ function sqDistance(pxColor, color) {
     return (pxColor.r - color.r) ** 2 +
         (pxColor.g - color.g) ** 2 +
         (pxColor.b - color.b) ** 2
+}
+
+function average(locations) {
+    const result = {
+        x: 0,
+        y: 0
+    }
+
+    locations.forEach(loc => {
+        result.x += loc.x;
+        result.y += loc.y;
+    })
+
+    result.x /= locations.length;
+    result.y /= locations.length;
+    return result;
 }
