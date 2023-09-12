@@ -1,5 +1,6 @@
 let canvas, ctx, video;
 const color = [181, 12, 85];
+const playerPaddle = document.querySelector(".box");
 
 function main() {
     canvas = document.querySelector("#camera");
@@ -24,13 +25,7 @@ function animate() {
 
     if (locations.length > 0) {
         const center = average(locations);
-
-        ctx.beginPath();
-        ctx.strokeStyle = "yellow";
-        ctx.lineWidth = 5;
-        ctx.moveTo(0, center.y);
-        ctx.lineTo(canvas.width, center.y);
-        ctx.stroke();
+        playerPaddle.style.cssText = `top: ${center.y + 75}px;` // 75 just seems to work
     }
 
     requestAnimationFrame(animate);

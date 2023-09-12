@@ -16,3 +16,10 @@ body {
     border-radius: 0.5em;
     transform: rotateY(180deg);
 }
+
+.box {
+    width: 4em;
+    height: 8em;
+    background-color: silver;
+    position: absolute;
+}
