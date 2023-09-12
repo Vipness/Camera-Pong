@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
+    <script src="./index.js" defer></script>
     <title>Pen Tracker</title>
 </head>
 
-<body>
+<body onload="main()">
     <div class="wrapper">
+        <video id="myVideo"></video>
         <canvas id="camera"></canvas>
     </div>
 </body>
