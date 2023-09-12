@@ -8,14 +8,11 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
-#myVideo,
-#camera {
-    transform: rotateY(180deg);
+    background-color: #03001C;
 }
 
 #camera {
-    border: 1px solid black;
+    border: 0.3em solid #301E67;
     border-radius: 0.5em;
+    transform: rotateY(180deg);
 }
