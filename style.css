@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#camera {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 0.3em;
+}
