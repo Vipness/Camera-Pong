@@ -10,6 +10,7 @@
 body {
     margin: 0;
     background-color: #03001C;
+    overflow: hidden;
 }
 
 .wrapper {
@@ -17,20 +18,13 @@ body {
     top: 50vh;
     left: 50vw;
     transform: translate(-50%, -50%);
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 #camera {
     border: 0.2em solid #301E67;
     border-radius: 0.8em;
     transform: rotateY(180deg);
-}
-
-.box {
-    width: 3em;
-    height: 8em;
-    background-color: white;
-    position: absolute;
 }
 
 .score {
@@ -78,6 +72,7 @@ body {
     --y: 50;
 
     position: absolute;
+    z-index: 1;
     background-color: white;
     top: calc(var(--y) * 1vh);
     left: calc(var(--x) * 1vw);
