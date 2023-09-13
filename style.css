@@ -18,8 +18,8 @@ body {
 }
 
 .box {
-    width: 4em;
+    width: 3em;
     height: 8em;
-    background-color: silver;
+    background-color: white;
     position: absolute;
 }
