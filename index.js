@@ -25,7 +25,7 @@ function animate() {
 
     if (locations.length > 0) {
         const center = average(locations);
-        playerPaddle.style.cssText = `top: ${center.y + 75}px;` // 75 just seems to work
+        playerPaddle.style.cssText = `top: ${center.y + 75}px;`
     }
 
     requestAnimationFrame(animate);

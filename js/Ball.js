@@ -1,7 +1,7 @@
 const INITIAL_VELOCITY = 0.025;
 const VELOCITY_INCREASE = 0.000001;
 
-class Ball {
+export default class Ball {
     constructor(ballElem) {
         this.ballElem = ballElem;
         this.reset();
@@ -61,5 +61,3 @@ class Ball {
 function randomNumberBetween(min, max) {
     return Math.random() * (max - min) + min
 }
-
-export default Ball;
