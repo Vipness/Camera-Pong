@@ -12,18 +12,17 @@ body {
     background-color: #03001C;
 }
 
-/*
 .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #03001C;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
 }
 
 #camera {
-    border: 0.3em solid #301E67;
-    border-radius: 0.5em;
+    border: 0.2em solid #301E67;
+    border-radius: 0.8em;
     transform: rotateY(180deg);
 }
 
@@ -32,7 +31,7 @@ body {
     height: 8em;
     background-color: white;
     position: absolute;
-}*/
+}
 
 .score {
     display: flex;
@@ -62,7 +61,7 @@ body {
     top: calc(var(--position) * 1vh);
     transform: translateY(-50%);
     /* moves it back by 50% of its height */
-    width: 1vh;
+    width: 1.2vh;
     height: 10vh;
 }
 

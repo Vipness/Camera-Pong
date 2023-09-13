@@ -1,6 +1,6 @@
 let canvas, ctx, video;
 const color = [181, 12, 85];
-const playerPaddle = document.querySelector(".box");
+const playerPaddle = document.querySelector("#player-paddle");
 
 function main() {
     canvas = document.querySelector("#camera");
