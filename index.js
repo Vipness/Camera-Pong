@@ -11,7 +11,8 @@ function main() {
             video.play();
             video.onloadeddata = animate;
         })
-        .catch(function (error) { alert(error) })
+        // .catch(function (error) { alert(error) })
+        .catch(function () { console.error("Access to camera denied") })
 }
 
 function animate() {
