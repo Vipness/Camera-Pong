@@ -25,6 +25,7 @@ body {
     border: 0.2em solid #301E67;
     border-radius: 0.8em;
     transform: rotateY(180deg);
+    height: 100vh;
 }
 
 .score {

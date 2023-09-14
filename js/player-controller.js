@@ -1,11 +1,13 @@
 let canvas, ctx, video;
+const camWrapper = document.querySelector(".wrapper");
 const color = [181, 12, 85];
 const playerPaddle = document.querySelector("#player-paddle");
 
 function main() {
-    canvas = document.querySelector("#camera");
     navigator.mediaDevices.getUserMedia({ video: true })
         .then(function (rawData) {
+            createCanvas();
+
             video = document.createElement("video");
             video.srcObject = rawData;
             video.play();
@@ -13,6 +15,12 @@ function main() {
         })
         // .catch(function (error) { alert(error) })
         .catch(function () { console.error("Access to camera denied") })
+}
+
+function createCanvas() {
+    canvas = document.createElement("canvas");
+    canvas.setAttribute("id", "camera");
+    camWrapper.appendChild(canvas);
 }
 
 function animate() {
