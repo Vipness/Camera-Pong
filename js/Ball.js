@@ -51,10 +51,6 @@ export default class Ball {
         if (rect.bottom >= window.innerHeight || rect.top <= 0) {
             this.direction.y *= -1 // flip the direction
         }
-
-        if (rect.right >= window.innerWidth || rect.left <= 0) {
-            this.direction.x *= -1 // flip the direction
-        }
     }
 }
 
