@@ -13,14 +13,19 @@ function main() {
             video.play();
             video.onloadeddata = animate;
         })
-        // .catch(function (error) { alert(error) })
-        .catch(function () { console.error("Access to camera denied") })
+        .catch(function (error) { handlePermDenied(); })
 }
 
 function createCanvas() {
     canvas = document.createElement("canvas");
     canvas.setAttribute("id", "camera");
     camWrapper.appendChild(canvas);
+}
+
+function handlePermDenied() { // if camera permissions are denied, control the player paddle with the mouse
+    window.addEventListener("mousemove", (e) => {
+        playerPaddle.style.cssText = `top: ${(e.y / window.innerHeight) * 100}vh`
+    })
 }
 
 function animate() {
