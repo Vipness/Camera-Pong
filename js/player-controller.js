@@ -19,10 +19,6 @@ function main() {
 function createCanvas() {
     canvas = document.createElement("canvas");
     canvas.setAttribute("id", "camera");
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
     camWrapper.appendChild(canvas);
 }
 
@@ -34,6 +30,11 @@ function handlePermDenied() { // if camera permissions are denied, control the p
 
 function animate() {
     const ctx = canvas.getContext("2d");
+    const aspectRatio = video.videoWidth / video.videoHeight;
+
+    canvas.width = aspectRatio * window.innerHeight;
+    canvas.height = window.innerHeight;
+
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -46,7 +47,7 @@ function animate() {
 
         // draw circle at center of pen
         ctx.beginPath();
-        ctx.arc(center.x, center.y, 5, 0, 2 * Math.PI, false);
+        ctx.arc(center.x, center.y, 8, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'green';
         ctx.fill();
         ctx.lineWidth = 4;
