@@ -40,6 +40,10 @@ function paddle(x, y) {
 function createBall(x, y) {
     this.x = x;
     this.y = y;
+    let direction = {
+        x: Math.cos(randomNumberBetween(0, 2 * Math.PI)),
+        y: Math.sin(randomNumberBetween(0, 2 * Math.PI))
+    }
 
     this.update = function () {
         let ctx = gameArea.context;
@@ -48,12 +52,22 @@ function createBall(x, y) {
         ctx.arc(this.x, this.y, 10, 0, 2 * Math.PI);
         ctx.fill();
     }
+
+    this.move = function () {
+        this.x += direction.x * 4;
+        this.y += direction.y * 4;
+    }
 }
 
 function updateGameArea() {
     gameArea.clear();
 
+    ball.move();
     ball.update();
     computerPaddle.update();
     playerPaddle.update();
+}
+
+function randomNumberBetween(min, max) {
+    return Math.random() * (max - min) + min;
 }
