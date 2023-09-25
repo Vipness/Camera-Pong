@@ -10,21 +10,14 @@
 body {
     margin: 0;
     background-color: #03001C;
-    overflow: hidden;
 }
 
-.wrapper {
+#canvas {
+    background-color: rgba(168, 168, 168, 0.651);
     position: absolute;
-    top: 50vh;
-    left: 50vw;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0.5;
-}
-
-#camera {
-    border: 0.2em solid #301E67;
-    border-radius: 0.8em;
-    transform: rotateY(180deg);
 }
 
 .score {
@@ -45,44 +38,4 @@ body {
 .score>:first-child {
     text-align: right;
     border-right: .5vh solid white;
-}
-
-.paddle {
-    --position: 50;
-
-    position: absolute;
-    background-color: white;
-    top: calc(var(--position) * 1vh);
-    transform: translateY(-50%);
-    /* moves it back by 50% of its height */
-    width: 1.2vh;
-    height: 10vh;
-}
-
-.paddle.left {
-    left: 1vw;
-}
-
-.paddle.right {
-    right: 1vw;
-}
-
-.ball {
-    --x: 50;
-    --y: 50;
-
-    position: absolute;
-    background-color: white;
-    top: calc(var(--y) * 1vh);
-    left: calc(var(--x) * 1vw);
-    transform: translate(-50%, 50%);
-    /* moves it back by 50% of its height and width so its perfectly centered */
-    width: 2.5vh;
-    height: 2.5vh;
-    border-radius: 50%;
-}
-
-.paddle,
-.ball {
-    z-index: 1;
 }
