@@ -40,6 +40,8 @@ function paddle(x, y) {
 function createBall(x, y) {
     this.x = x;
     this.y = y;
+    this.r = 10;
+    this.vel = 4;
     let direction = {
         x: Math.cos(randomNumberBetween(0, 2 * Math.PI)),
         y: Math.sin(randomNumberBetween(0, 2 * Math.PI))
@@ -49,13 +51,21 @@ function createBall(x, y) {
         let ctx = gameArea.context;
         ctx.fillStyle = "white";
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 10, 0, 2 * Math.PI);
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
         ctx.fill();
     }
 
     this.move = function () {
-        this.x += direction.x * 4;
-        this.y += direction.y * 4;
+        this.x += direction.x * this.vel;
+        this.y += direction.y * this.vel;
+
+        if (this.x + this.r > canvas.width || this.x - this.r < 0) {
+            direction.x *= -1; // Reverse horizontal velocity on collision
+        }
+
+        if (this.y + this.r > canvas.height || this.y - this.r < 0) {
+            direction.y *= -1; // Reverse vertical velocity on collision
+        }
     }
 }
 
