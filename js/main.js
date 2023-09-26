@@ -35,6 +35,11 @@ function paddle(x, y) {
         ctx.fillStyle = "white";
         ctx.fillRect(this.x, this.y, 10, 50);
     }
+
+    this.move = function (y) {
+        let ctx = gameArea.context;
+        this.y = y - ball.r;
+    }
 }
 
 function createBall(x, y) {
@@ -74,6 +79,8 @@ function updateGameArea() {
 
     ball.move();
     ball.update();
+
+    computerPaddle.move(ball.y);
     computerPaddle.update();
     playerPaddle.update();
 }
