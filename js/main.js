@@ -85,6 +85,11 @@ function updateGameArea() {
     playerPaddle.update();
 }
 
+
+gameArea.canvas.addEventListener("mousemove", (event) => {
+    playerPaddle.move(event.offsetY);
+})
+
 function randomNumberBetween(min, max) {
     return Math.random() * (max - min) + min;
 }
