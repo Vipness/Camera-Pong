@@ -2,6 +2,9 @@ let computerPaddle;
 let playerPaddle;
 let ball;
 
+const playerScoreElem = document.querySelector("#player-score");
+const computerScoreElem = document.querySelector("#computer-score");
+
 let gameArea = {
     canvas: document.createElement("canvas"),
     start: function () {
@@ -83,6 +86,8 @@ function updateGameArea() {
     computerPaddle.move(ball.y);
     computerPaddle.update();
     playerPaddle.update();
+
+    if (isLose()) handleLose();
 }
 
 
@@ -92,4 +97,17 @@ gameArea.canvas.addEventListener("mousemove", (event) => {
 
 function randomNumberBetween(min, max) {
     return Math.random() * (max - min) + min;
+}
+
+function isLose() {
+    return (ball.x + ball.r) >= canvas.width || (ball.x - ball.r) <= 0;
+}
+
+function handleLose() {
+    if ((ball.x - ball.r) <= 0) {
+        playerScoreElem.textContent = parseInt(playerScoreElem.textContent) + 1;
+    }
+    else {
+        computerScoreElem.textContent = parseInt(computerScoreElem.textContent) + 1;
+    }
 }
