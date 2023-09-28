@@ -22,21 +22,27 @@ let gameArea = {
 
 function startGame() {
     gameArea.start();
+    reset();
+}
+
+startGame();
+
+function reset() {
     computerPaddle = new paddle(10, (canvas.height / 2) - 25);
     playerPaddle = new paddle((canvas.width - 20), (canvas.height / 2) - 25);
     ball = new createBall(canvas.width / 2, canvas.height / 2);
 }
 
-startGame();
-
 function paddle(x, y) {
     this.x = x;
     this.y = y;
+    this.width = 10;
+    this.height = 50;
 
     this.update = function () {
         let ctx = gameArea.context;
         ctx.fillStyle = "white";
-        ctx.fillRect(this.x, this.y, 10, 50);
+        ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
     this.move = function (y) {
@@ -61,9 +67,7 @@ function createBall(x, y) {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
         ctx.fill();
-    }
 
-    this.move = function () {
         this.x += direction.x * this.vel;
         this.y += direction.y * this.vel;
 
@@ -80,7 +84,6 @@ function createBall(x, y) {
 function updateGameArea() {
     gameArea.clear();
 
-    ball.move();
     ball.update();
 
     computerPaddle.move(ball.y);
@@ -110,4 +113,5 @@ function handleLose() {
     else {
         computerScoreElem.textContent = parseInt(computerScoreElem.textContent) + 1;
     }
+    reset();
 }
