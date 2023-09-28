@@ -56,9 +56,14 @@ function createBall(x, y) {
     this.y = y;
     this.r = 10;
     this.vel = 4;
-    let direction = {
-        x: Math.cos(randomNumberBetween(0, 2 * Math.PI)),
-        y: Math.sin(randomNumberBetween(0, 2 * Math.PI))
+    let direction = { x: 0 };
+
+    while (Math.abs(direction.x) <= .3 || Math.abs(direction.x) >= .9) {
+        const headingTowards = randomNumberBetween(0, 2 * Math.PI)
+        direction = {
+            x: Math.cos(headingTowards),
+            y: Math.sin(headingTowards)
+        }
     }
 
     this.update = function () {
