@@ -76,12 +76,12 @@ function createBall(x, y) {
         this.x += direction.x * this.vel;
         this.y += direction.y * this.vel;
 
-        if (this.x + this.r > canvas.width || this.x - this.r < 0) {
-            direction.x *= -1; // Reverse horizontal velocity on collision
-        }
-
         if (this.y + this.r > canvas.height || this.y - this.r < 0) {
             direction.y *= -1; // Reverse vertical velocity on collision
+        }
+
+        if (isCollision(ball, playerPaddle) || isCollision(ball, computerPaddle)) {
+            direction.x *= -1;
         }
     }
 }
@@ -119,4 +119,13 @@ function handleLose() {
         computerScoreElem.textContent = parseInt(computerScoreElem.textContent) + 1;
     }
     reset();
+}
+
+function isCollision(ball, paddle) {
+    return (
+        ball.x - ball.r <= paddle.x + paddle.width && // ball left is touching paddle right
+        ball.x + ball.r >= paddle.x && // ball right is touching paddle left
+        ball.y - ball.r <= paddle.y + paddle.height && // ball top is touching paddle bottom
+        ball.y + ball.r >= paddle.y // ball bottom is touching paddle top
+    );
 }
