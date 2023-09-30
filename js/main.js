@@ -47,7 +47,7 @@ function paddle(x, y) {
 
     this.move = function (y) {
         let ctx = gameArea.context;
-        this.y = y - ball.r;
+        this.y = y - (ball.r * 2); // the ball is supposed to hit the center of the paddle
     }
 }
 
@@ -56,6 +56,7 @@ function createBall(x, y) {
     this.y = y;
     this.r = 10;
     this.vel = 4;
+    this.velIncrease = 1;
     let direction = { x: 0 };
 
     while (Math.abs(direction.x) <= .3 || Math.abs(direction.x) >= .9) {
@@ -67,14 +68,14 @@ function createBall(x, y) {
     }
 
     this.update = function () {
+        this.x += direction.x * this.vel * this.velIncrease;
+        this.y += direction.y * this.vel * this.velIncrease;
+
         let ctx = gameArea.context;
         ctx.fillStyle = "white";
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
         ctx.fill();
-
-        this.x += direction.x * this.vel;
-        this.y += direction.y * this.vel;
 
         if (this.y + this.r > canvas.height || this.y - this.r < 0) {
             direction.y *= -1; // Reverse vertical velocity on collision
@@ -83,6 +84,7 @@ function createBall(x, y) {
         if (isCollision(ball, playerPaddle) || isCollision(ball, computerPaddle)) {
             direction.x *= -1;
         }
+        this.velIncrease += 0.001;
     }
 }
 
