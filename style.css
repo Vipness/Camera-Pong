@@ -13,11 +13,22 @@ body {
 }
 
 #canvas {
-    background-color: rgba(168, 168, 168, 0.651);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.camWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.7;
+}
+
+#camera {
+    transform: rotateY(180deg);
 }
 
 .score {

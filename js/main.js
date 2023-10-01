@@ -1,9 +1,12 @@
 let computerPaddle;
 let playerPaddle;
 let ball;
+let camera, camCtx, video;
 
 const playerScoreElem = document.querySelector("#player-score");
 const computerScoreElem = document.querySelector("#computer-score");
+const camWrapper = document.querySelector(".camWrapper");
+const color = [181, 12, 85];
 
 let gameArea = {
     canvas: document.createElement("canvas"),
@@ -130,4 +133,113 @@ function isCollision(ball, paddle) {
         ball.y - ball.r <= paddle.y + paddle.height && // ball top is touching paddle bottom
         ball.y + ball.r >= paddle.y // ball bottom is touching paddle top
     );
+}
+
+// player controller
+document.body.addEventListener("load", main());
+function main() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (rawData) {
+            createCanvas();
+
+            video = document.createElement("video");
+            video.srcObject = rawData;
+            video.play();
+            video.onloadeddata = animate;
+        })
+        .catch(function (error) {
+            console.info(error);
+            handlePermDenied();
+        })
+}
+
+function createCanvas() {
+    camera = document.createElement("canvas");
+    camera.setAttribute("id", "camera");
+    camWrapper.appendChild(camera);
+}
+
+function handlePermDenied() {
+    gameArea.canvas.style.cssText = "background-color: rgba(168, 168, 168, 0.651);";
+    gameArea.canvas.addEventListener("mousemove", (event) => {
+        playerPaddle.move(event.offsetY);
+    })
+}
+function animate() {
+    const camCtx = camera.getContext("2d");
+
+    camera.width = 640;
+    camera.height = 480;
+
+    camCtx.drawImage(video, 0, 0, camera.width, camera.height);
+
+    const imgData = camCtx.getImageData(0, 0, camera.width, camera.height);
+    const locations = getLocationsWithColor(imgData, { r: 255, g: 0, b: 0 });
+
+    if (locations.length > 0) {
+        const center = average(locations);
+
+        playerPaddle.move(center.y);
+
+        // draw circle at center of pen
+        camCtx.beginPath();
+        camCtx.arc(center.x, center.y, 8, 0, 2 * Math.PI, false);
+        camCtx.fillStyle = 'green';
+        camCtx.fill();
+        camCtx.lineWidth = 4;
+        camCtx.strokeStyle = '#003300';
+        camCtx.stroke();
+    }
+
+    requestAnimationFrame(animate);
+}
+
+function getLocationsWithColor(imgData, color) {
+    const locations = [];
+
+    for (let i = 0; i < imgData.data.length; i += 4) {
+        const pxColor = {
+            r: imgData.data[i],
+            g: imgData.data[i + 1],
+            b: imgData.data[i + 2]
+        };
+
+        const pxIndex = i / 4;
+
+        const pxLocation = {
+            x: pxIndex % imgData.width,
+            y: Math.floor(pxIndex / imgData.width)
+        }
+
+        if (colorsMatch(pxColor, color)) {
+            locations.push(pxLocation);
+        }
+    }
+    return locations;
+}
+
+function colorsMatch(pxColor, color, threshold = 160) {
+    return sqDistance(pxColor, color) < threshold ** 2;
+}
+
+function sqDistance(pxColor, color) {
+    return (pxColor.r - color.r) ** 2 +
+        (pxColor.g - color.g) ** 2 +
+        (pxColor.b - color.b) ** 2
+}
+
+function average(locations) {
+    const result = {
+        x: 0,
+        y: 0
+    }
+
+    locations.forEach(loc => {
+        result.x += loc.x;
+        result.y += loc.y;
+    })
+
+    result.x /= locations.length;
+    result.y /= locations.length;
+    return result;
 }
