@@ -41,16 +41,23 @@ function paddle(x, y) {
     this.y = y;
     this.width = 10;
     this.height = 50;
+    this.velIncrease = 1;
 
     this.update = function () {
         let ctx = gameArea.context;
         ctx.fillStyle = "white";
         ctx.fillRect(this.x, this.y, this.width, this.height);
+        this.velIncrease += 0.00005;
     }
 
-    this.move = function (y) {
+    this.compMove = function (y) {
         let ctx = gameArea.context;
-        this.y = y - (ball.r * 2); // the ball is supposed to hit the center of the paddle
+        this.y = this.velIncrease * (y - (ball.r * 2)); // the ball is supposed to hit the center of the paddle
+    }
+
+    this.playerMove = function (y) {
+        let ctx = gameArea.context;
+        this.y = y - (ball.r * 2);
     }
 }
 
@@ -96,17 +103,12 @@ function updateGameArea() {
 
     ball.update();
 
-    computerPaddle.move(ball.y);
+    computerPaddle.compMove(ball.y);
     computerPaddle.update();
     playerPaddle.update();
 
     if (isLose()) handleLose();
 }
-
-
-gameArea.canvas.addEventListener("mousemove", (event) => {
-    playerPaddle.move(event.offsetY);
-})
 
 function randomNumberBetween(min, max) {
     return Math.random() * (max - min) + min;
@@ -162,7 +164,7 @@ function createCanvas() {
 function handlePermDenied() {
     gameArea.canvas.style.cssText = "background-color: rgba(168, 168, 168, 0.651);";
     gameArea.canvas.addEventListener("mousemove", (event) => {
-        playerPaddle.move(event.offsetY);
+        playerPaddle.playerMove(event.offsetY);
     })
 }
 function animate() {
@@ -179,7 +181,7 @@ function animate() {
     if (locations.length > 0) {
         const center = average(locations);
 
-        playerPaddle.move(center.y);
+        playerPaddle.playerMove(center.y);
 
         // draw circle at center of pen
         camCtx.beginPath();
