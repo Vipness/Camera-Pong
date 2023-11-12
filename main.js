@@ -1,113 +1,42 @@
-let computerPaddle;
-let playerPaddle;
-let ball;
-let camera, camCtx, video;
+const canvas = document.querySelector("#canvas");
+const ctx = canvas.getContext("2d");
 
+let computerPaddle, playerPaddle;
+let ball;
+let camera;
+
+const wrapper = document.querySelector(".wrapper");
 const playerScoreElem = document.querySelector("#player-score");
 const computerScoreElem = document.querySelector("#computer-score");
-const camWrapper = document.querySelector(".camWrapper");
 const color = [181, 12, 85];
 
-let gameArea = {
-    canvas: document.createElement("canvas"),
-    start: function () {
-        this.canvas.width = 640;
-        this.canvas.height = 480;
-        this.canvas.setAttribute("id", "canvas");
-        this.context = this.canvas.getContext("2d");
-        document.body.appendChild(this.canvas);
-        this.interval = setInterval(updateGameArea, 20);
-    },
-    clear: function () {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
-}
+canvas.width = 640;
+canvas.height = 480;
 
-function startGame() {
-    gameArea.start();
-    reset();
-}
+clearCanvas();
+reset();
 
-startGame();
-
-function reset() {
-    computerPaddle = new paddle(10, (canvas.height / 2) - 25);
-    playerPaddle = new paddle((canvas.width - 20), (canvas.height / 2) - 25);
-    ball = new createBall(canvas.width / 2, canvas.height / 2);
-}
-
-function paddle(x, y) {
-    this.x = x;
-    this.y = y;
-    this.width = 10;
-    this.height = 50;
-    this.velIncrease = 1;
-
-    this.update = function () {
-        let ctx = gameArea.context;
-        ctx.fillStyle = "white";
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        this.velIncrease += 0.00005;
-    }
-
-    this.compMove = function (y) {
-        let ctx = gameArea.context;
-        this.y = this.velIncrease * (y - (ball.r * 2)); // the ball is supposed to hit the center of the paddle
-    }
-
-    this.playerMove = function (y) {
-        let ctx = gameArea.context;
-        this.y = y - (ball.r * 2);
-    }
-}
-
-function createBall(x, y) {
-    this.x = x;
-    this.y = y;
-    this.r = 10;
-    this.vel = 4;
-    this.velIncrease = 1;
-    let direction = { x: 0 };
-
-    while (Math.abs(direction.x) <= .3 || Math.abs(direction.x) >= .9) {
-        const headingTowards = randomNumberBetween(0, 2 * Math.PI)
-        direction = {
-            x: Math.cos(headingTowards),
-            y: Math.sin(headingTowards)
-        }
-    }
-
-    this.update = function () {
-        this.x += direction.x * this.vel * this.velIncrease;
-        this.y += direction.y * this.vel * this.velIncrease;
-
-        let ctx = gameArea.context;
-        ctx.fillStyle = "white";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
-        ctx.fill();
-
-        if (this.y + this.r > canvas.height || this.y - this.r < 0) {
-            direction.y *= -1; // Reverse vertical velocity on collision
-        }
-
-        if (isCollision(ball, playerPaddle) || isCollision(ball, computerPaddle)) {
-            direction.x *= -1;
-        }
-        this.velIncrease += 0.001;
-    }
-}
-
-function updateGameArea() {
-    gameArea.clear();
+function animateGame() {
+    window.requestAnimationFrame(animateGame);
+    clearCanvas();
 
     ball.update();
-
     computerPaddle.compMove(ball.y);
     computerPaddle.update();
     playerPaddle.update();
 
     if (isLose()) handleLose();
+}
+animateGame();
+
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+}
+
+function reset() {
+    computerPaddle = new Paddle(10, (canvas.height / 2) - 25)
+    playerPaddle = new Paddle(canvas.width - 20, (canvas.height / 2) - 25)
+    ball = new Ball(canvas.width / 2, canvas.height / 2)
 }
 
 function randomNumberBetween(min, max) {
@@ -119,12 +48,8 @@ function isLose() {
 }
 
 function handleLose() {
-    if ((ball.x - ball.r) <= 0) {
-        playerScoreElem.textContent = parseInt(playerScoreElem.textContent) + 1;
-    }
-    else {
-        computerScoreElem.textContent = parseInt(computerScoreElem.textContent) + 1;
-    }
+    if ((ball.x - ball.r) <= 0) playerScoreElem.textContent = parseInt(playerScoreElem.textContent) + 1;
+    else computerScoreElem.textContent = parseInt(computerScoreElem.textContent) + 1;
     reset();
 }
 
@@ -142,12 +67,12 @@ document.body.addEventListener("load", main());
 function main() {
     navigator.mediaDevices.getUserMedia({ video: true })
         .then(function (rawData) {
-            createCanvas();
+            createCamera();
 
             video = document.createElement("video");
             video.srcObject = rawData;
             video.play();
-            video.onloadeddata = animate;
+            video.onloadeddata = animateCamera;
         })
         .catch(function (error) {
             console.info(error);
@@ -155,27 +80,28 @@ function main() {
         })
 }
 
-function createCanvas() {
+function createCamera() {
     camera = document.createElement("canvas");
     camera.setAttribute("id", "camera");
-    camWrapper.appendChild(camera);
+    wrapper.insertBefore(camera, canvas);
 }
 
 function handlePermDenied() {
-    gameArea.canvas.style.cssText = "background-color: rgba(168, 168, 168, 0.651);";
-    gameArea.canvas.addEventListener("mousemove", (event) => {
+    canvas.style.cssText = "background-color: rgba(168, 168, 168, 0.651);";
+    canvas.addEventListener("mousemove", (event) => {
         playerPaddle.playerMove(event.offsetY);
     })
 }
-function animate() {
-    const camCtx = camera.getContext("2d");
 
-    camera.width = 640;
-    camera.height = 480;
+function animateCamera() {
+    const cameraCtx = camera.getContext("2d");
 
-    camCtx.drawImage(video, 0, 0, camera.width, camera.height);
+    camera.width = canvas.width;
+    camera.height = canvas.height;
+    cameraCtx.drawImage(video, 0, 0, camera.width, camera.height);
 
-    const imgData = camCtx.getImageData(0, 0, camera.width, camera.height);
+    const imgData = cameraCtx.getImageData(0, 0, camera.width, camera.height);
+    imgData.willReadFrequently = true;
     const locations = getLocationsWithColor(imgData, { r: 255, g: 0, b: 0 });
 
     if (locations.length > 0) {
@@ -184,16 +110,16 @@ function animate() {
         playerPaddle.playerMove(center.y);
 
         // draw circle at center of pen
-        camCtx.beginPath();
-        camCtx.arc(center.x, center.y, 8, 0, 2 * Math.PI, false);
-        camCtx.fillStyle = 'green';
-        camCtx.fill();
-        camCtx.lineWidth = 4;
-        camCtx.strokeStyle = '#003300';
-        camCtx.stroke();
+        cameraCtx.beginPath();
+        cameraCtx.arc(center.x, center.y, 8, 0, 2 * Math.PI, false);
+        cameraCtx.fillStyle = 'green';
+        cameraCtx.fill();
+        cameraCtx.lineWidth = 4;
+        cameraCtx.strokeStyle = '#003300';
+        cameraCtx.stroke();
     }
 
-    requestAnimationFrame(animate);
+    window.requestAnimationFrame(animateCamera);
 }
 
 function getLocationsWithColor(imgData, color) {
@@ -213,14 +139,12 @@ function getLocationsWithColor(imgData, color) {
             y: Math.floor(pxIndex / imgData.width)
         }
 
-        if (colorsMatch(pxColor, color)) {
-            locations.push(pxLocation);
-        }
+        if (colorsMatch(pxColor, color)) locations.push(pxLocation);
     }
     return locations;
 }
 
-function colorsMatch(pxColor, color, threshold = 160) {
+function colorsMatch(pxColor, color, threshold = 90) {
     return sqDistance(pxColor, color) < threshold ** 2;
 }
 
