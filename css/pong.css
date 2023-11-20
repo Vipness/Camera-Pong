@@ -7,9 +7,17 @@
     font-family: 'Poppins', sans-serif;
 }
 
+:root {
+    --text: #f1eeef;
+    --background: #110e0e;
+    --primary: #3b4543;
+    --secondary: #211c1d;
+    --accent: #7b8e8b;
+}
+
 body {
     margin: 0;
-    background-color: #03001C;
+    background-color: var(--background);
 }
 
 #canvas {
@@ -24,7 +32,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* opacity: 0.7; */
+    opacity: 0.9;
 }
 
 #camera {
@@ -35,7 +43,7 @@ body {
 .score {
     display: flex;
     justify-content: center;
-    color: white;
+    color: var(--text);
     font-size: 6vh;
     font-weight: 600;
 }
@@ -49,7 +57,7 @@ body {
 
 .score>:first-child {
     text-align: right;
-    border-right: .5vh solid white;
+    border-right: .5vh solid var(--text);
 }
 
 .resultsBox {
@@ -57,7 +65,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: var(--text);
 }
 
 #result {
@@ -66,7 +74,8 @@ body {
     text-align: center;
 }
 
-#winner {
+#winner,
+#timer {
     font-size: 2em;
     font-weight: 400;
     text-align: center;

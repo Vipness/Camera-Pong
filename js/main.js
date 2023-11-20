@@ -40,9 +40,17 @@ function animateGame() {
         }
         else document.querySelector("#winner").textContent = "You lose!";
 
-        setTimeout(() => {
-            window.location.assign("index.html")
-        }, 5000);
+        let countDownTimer = 5;
+        document.querySelector("#timer").textContent = countDownTimer;
+        const countDownInterval = setInterval(() => {
+            countDownTimer--;
+            document.querySelector("#timer").textContent = countDownTimer;
+
+            if (countDownTimer <= 0) {
+                clearInterval(countDownInterval);
+                window.location.assign("index.html")
+            }
+        }, 1000);
     }
 
     if (isAnimating) window.requestAnimationFrame(animateGame);
