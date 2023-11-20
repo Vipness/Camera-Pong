@@ -4,19 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
-    <script src="./classes.js"></script>
-    <script src="./main.js" defer></script>
-    <title>Pong with Pen Tracker</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Camera Pong</title>
 </head>
 
 <body>
-    <div class="score">
-        <div id="computer-score">0</div>
-        <div id="player-score">0</div>
-    </div>
     <div class="wrapper">
-        <canvas id="canvas"></canvas>
+        <h1>Camera Pong</h1>
+
+        <label for="rounds">Number of rounds:</label>
+        <input type="range" id="rounds" min="2" max="6" value="4">
+
+        <button class="btnStart"><a href="./pong.html">Start Game</a></button>
     </div>
 </body>
 
