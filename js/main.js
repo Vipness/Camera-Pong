@@ -4,11 +4,13 @@ const ctx = canvas.getContext("2d");
 let computerPaddle, playerPaddle;
 let ball;
 let camera;
+let isAnimating = true;
 
 const wrapper = document.querySelector(".wrapper");
 const playerScoreElem = document.querySelector("#player-score");
 const computerScoreElem = document.querySelector("#computer-score");
 const color = [181, 12, 85];
+const numOfRounds = 1;
 
 canvas.width = 640;
 canvas.height = 480;
@@ -17,7 +19,6 @@ clearCanvas();
 reset();
 
 function animateGame() {
-    window.requestAnimationFrame(animateGame);
     clearCanvas();
 
     ball.update();
@@ -26,6 +27,25 @@ function animateGame() {
     playerPaddle.update();
 
     if (isLose()) handleLose();
+
+    if (parseInt(playerScoreElem.textContent) >= numOfRounds || parseInt(computerScoreElem.textContent) >= numOfRounds) {
+        window.cancelAnimationFrame(animateGame);
+        isAnimating = false;
+        camera.remove();
+        canvas.remove();
+
+        document.querySelector("#result").textContent = "GAME OVER!";
+        if (parseInt(playerScoreElem.textContent) >= parseInt(computerScoreElem.textContent)) {
+            document.querySelector("#winner").textContent = "You win!";
+        }
+        else document.querySelector("#winner").textContent = "You lose!";
+
+        setTimeout(() => {
+            window.location.assign("index.html")
+        }, 5000);
+    }
+
+    if (isAnimating) window.requestAnimationFrame(animateGame);
 }
 animateGame();
 
@@ -119,7 +139,7 @@ function animateCamera() {
         cameraCtx.stroke();
     }
 
-    window.requestAnimationFrame(animateCamera);
+    if (isAnimating) window.requestAnimationFrame(animateCamera);
 }
 
 function getLocationsWithColor(imgData, color) {

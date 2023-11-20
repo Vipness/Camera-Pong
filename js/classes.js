@@ -31,7 +31,7 @@ class Ball {
         this.x = x;
         this.y = y;
         this.r = 10;
-        this.vel = 5;
+        this.vel = 6;
         this.velIncrease = 1;
         this.direction = { x: 0 };
 
