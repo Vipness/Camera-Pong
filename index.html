@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/index.js" defer></script>
     <title>Camera Pong</title>
 </head>
 
@@ -12,8 +13,8 @@
     <div class="wrapper">
         <h1>Camera Pong</h1>
 
-        <label for="rounds">Number of rounds:</label>
-        <input type="range" id="rounds" min="2" max="6" value="4">
+        <label for="rounds">Number of rounds: <span id="roundsText"></span></label>
+        <input type="range" min="2" max="6" value="4" id="rounds">
 
         <button class="btnStart"><a href="./pong.html">Start Game</a></button>
     </div>

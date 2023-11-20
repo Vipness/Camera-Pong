@@ -42,6 +42,7 @@ h1 {
     color: var(--text);
     margin: 0;
     font-weight: 600;
+    text-align: center;
 }
 
 .btnStart {
