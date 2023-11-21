@@ -1,8 +1,10 @@
 const rounds = document.querySelector("#rounds");
 const roundsText = document.querySelector("#roundsText")
 
-roundsText.textContent = ` ${rounds.value}`;
+window.addEventListener("load", setRoundsText)
+rounds.addEventListener("input", setRoundsText)
 
-rounds.addEventListener("change", () => {
-    roundsText.textContent = ` ${rounds.value}`;
-})
+function setRoundsText() {
+    sessionStorage.setItem("numOfRounds", rounds.value);
+    roundsText.textContent = ` ${sessionStorage.getItem("numOfRounds")}`;
+}

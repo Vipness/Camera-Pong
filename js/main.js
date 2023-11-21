@@ -10,7 +10,7 @@ const wrapper = document.querySelector(".wrapper");
 const playerScoreElem = document.querySelector("#player-score");
 const computerScoreElem = document.querySelector("#computer-score");
 const color = [181, 12, 85];
-const numOfRounds = 1;
+const numOfRounds = sessionStorage.getItem("numOfRounds");
 
 canvas.width = 640;
 canvas.height = 480;
