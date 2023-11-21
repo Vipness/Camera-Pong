@@ -33,7 +33,9 @@ function animateGame() {
     if (playerScore >= numOfRounds || computerScore >= numOfRounds) stopGame(playerScore, computerScore);
     if (isAnimating) window.requestAnimationFrame(animateGame);
 }
-animateGame();
+setTimeout(() => {
+    animateGame();
+}, 2000);
 
 function stopGame(playerScore, computerScore) {
     window.cancelAnimationFrame(animateGame);
