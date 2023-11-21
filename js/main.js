@@ -28,34 +28,36 @@ function animateGame() {
 
     if (isLose()) handleLose();
 
-    if (parseInt(playerScoreElem.textContent) >= numOfRounds || parseInt(computerScoreElem.textContent) >= numOfRounds) {
-        window.cancelAnimationFrame(animateGame);
-        isAnimating = false;
-        camera.remove();
-        canvas.remove();
-
-        document.querySelector("#result").textContent = "GAME OVER!";
-        if (parseInt(playerScoreElem.textContent) >= parseInt(computerScoreElem.textContent)) {
-            document.querySelector("#winner").textContent = "You win!";
-        }
-        else document.querySelector("#winner").textContent = "You lose!";
-
-        let countDownTimer = 5;
-        document.querySelector("#timer").textContent = countDownTimer;
-        const countDownInterval = setInterval(() => {
-            countDownTimer--;
-            document.querySelector("#timer").textContent = countDownTimer;
-
-            if (countDownTimer <= 0) {
-                clearInterval(countDownInterval);
-                window.location.assign("index.html")
-            }
-        }, 1000);
-    }
-
+    const playerScore = parseInt(playerScoreElem.textContent);
+    const computerScore = parseInt(computerScoreElem.textContent);
+    if (playerScore >= numOfRounds || computerScore >= numOfRounds) stopGame(playerScore, computerScore);
     if (isAnimating) window.requestAnimationFrame(animateGame);
 }
 animateGame();
+
+function stopGame(playerScore, computerScore) {
+    window.cancelAnimationFrame(animateGame);
+    window.cancelAnimationFrame(animateCamera);
+    isAnimating = false;
+    camera.remove();
+    canvas.remove();
+
+    document.querySelector("#result").textContent = "GAME OVER!";
+    document.querySelector("#winner").textContent = playerScore >= computerScore ? "You win!" : "You lose!";
+
+    let countDownTimer = 5;
+    document.querySelector("#timer").textContent = countDownTimer;
+
+    const countDownInterval = setInterval(() => {
+        countDownTimer--;
+        document.querySelector("#timer").textContent = countDownTimer;
+
+        if (countDownTimer <= 0) {
+            clearInterval(countDownInterval);
+            window.location.assign("index.html");
+        }
+    }, 1000);
+}
 
 function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -126,15 +128,14 @@ function animateCamera() {
 
     camera.width = canvas.width;
     camera.height = canvas.height;
-    cameraCtx.drawImage(video, 0, 0, camera.width, camera.height);
 
+    cameraCtx.drawImage(video, 0, 0, camera.width, camera.height);
     const imgData = cameraCtx.getImageData(0, 0, camera.width, camera.height);
     imgData.willReadFrequently = true;
-    const locations = getLocationsWithColor(imgData, { r: 255, g: 0, b: 0 });
 
+    const locations = getLocationsWithColor(imgData, { r: 255, g: 0, b: 0 });
     if (locations.length > 0) {
         const center = average(locations);
-
         playerPaddle.playerMove(center.y);
 
         // draw circle at center of pen
