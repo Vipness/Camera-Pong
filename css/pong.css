@@ -20,22 +20,15 @@ body {
     background-color: var(--background);
 }
 
-#canvas {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .wrapper {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0.9;
 }
 
 #camera {
+    position: absolute;
     transform: rotateY(180deg);
     opacity: 0.6;
 }
@@ -61,22 +54,33 @@ body {
 }
 
 .resultsBox {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 22em;
+    margin: 0 auto;
+    padding: 2em;
+    background-color: var(--secondary);
+    border-radius: 0.3em;
+    box-shadow: var(--secondary) 0px 0px 10px;
     color: var(--text);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #result {
-    font-size: 2.5em;
     font-weight: 600;
     text-align: center;
+    margin: 0;
 }
 
 #winner,
 #timer {
-    font-size: 2em;
+    font-size: 1.8em;
     font-weight: 400;
     text-align: center;
 }

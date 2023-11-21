@@ -42,7 +42,7 @@ function stopGame(playerScore, computerScore) {
     camera.remove();
     canvas.remove();
 
-    document.querySelector("#result").textContent = "GAME OVER!";
+    document.querySelector(".resultsBox").style.display = "flex";
     document.querySelector("#winner").textContent = playerScore >= computerScore ? "You win!" : "You lose!";
 
     let countDownTimer = 5;
