@@ -9,7 +9,7 @@ let isAnimating = true;
 const wrapper = document.querySelector(".wrapper");
 const playerScoreElem = document.querySelector("#player-score");
 const computerScoreElem = document.querySelector("#computer-score");
-const color = [181, 12, 85];
+//const color = [70, 12, 20];
 const numOfRounds = sessionStorage.getItem("numOfRounds");
 
 canvas.width = 640;
@@ -133,9 +133,11 @@ function animateCamera() {
 
     cameraCtx.drawImage(video, 0, 0, camera.width, camera.height);
     const imgData = cameraCtx.getImageData(0, 0, camera.width, camera.height);
+    console.log(imgData.data[0], imgData.data[1], imgData.data[2]);
     imgData.willReadFrequently = true;
 
-    const locations = getLocationsWithColor(imgData, { r: 255, g: 0, b: 0 });
+    // [70, 12, 20];
+    const locations = getLocationsWithColor(imgData, { r: 105, g: 12, b: 20 });
     if (locations.length > 0) {
         const center = average(locations);
         playerPaddle.playerMove(center.y);
@@ -175,7 +177,7 @@ function getLocationsWithColor(imgData, color) {
     return locations;
 }
 
-function colorsMatch(pxColor, color, threshold = 90) {
+function colorsMatch(pxColor, color, threshold = 30) {
     return sqDistance(pxColor, color) < threshold ** 2;
 }
 
