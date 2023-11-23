@@ -41,8 +41,8 @@ function stopGame(playerScore, computerScore) {
     window.cancelAnimationFrame(animateGame);
     window.cancelAnimationFrame(animateCamera);
     isAnimating = false;
-    camera.remove();
     canvas.remove();
+    if (camera != null) camera.remove();
 
     document.querySelector(".resultsBox").style.display = "flex";
     document.querySelector("#winner").textContent = playerScore >= computerScore ? "You win!" : "You lose!";
@@ -137,11 +137,10 @@ function animateCamera() {
     imgData.willReadFrequently = true;
 
     // [70, 12, 20];
-    const locations = getLocationsWithColor(imgData, { r: 105, g: 12, b: 20 });
+    const locations = getLocationsWithColor(imgData, { r: 60, g: 12, b: 20 });
     if (locations.length > 0) {
         const center = average(locations);
         playerPaddle.playerMove(center.y);
-
         // draw circle at center of pen
         cameraCtx.beginPath();
         cameraCtx.arc(center.x, center.y, 8, 0, 2 * Math.PI, false);
@@ -177,7 +176,7 @@ function getLocationsWithColor(imgData, color) {
     return locations;
 }
 
-function colorsMatch(pxColor, color, threshold = 30) {
+function colorsMatch(pxColor, color, threshold = 35) {
     return sqDistance(pxColor, color) < threshold ** 2;
 }
 

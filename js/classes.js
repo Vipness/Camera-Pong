@@ -9,7 +9,7 @@ class Paddle {
 
     update() {
         this.draw();
-        this.velIncrease += 0.001;
+        this.velIncrease += 0.0008;
     }
 
     compMove(ballY) {
