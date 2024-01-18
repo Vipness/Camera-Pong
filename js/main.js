@@ -119,7 +119,7 @@ function createCamera() {
 }
 
 function handlePermDenied() {
-    canvas.style.cssText = "background-color: rgba(168, 168, 168, 0.651);";
+    canvas.style.cssText = "background-color: var(--secondary)";
     canvas.addEventListener("mousemove", (event) => {
         playerPaddle.playerMove(event.offsetY);
     })

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/login.css">
+    <script src="../js/login.js" defer></script>
     <title>Movie List</title>
 </head>
 
@@ -13,7 +14,7 @@
     <div class="wrapper">
         <div class="image"></div>
 
-        <div class="form-container">
+        <div class="form-container login active">
             <div class="welcome-box">
                 <h1 id="welcome">Login</h1>
                 <p class="subtext">Sign in to your account</p>
@@ -21,16 +22,39 @@
 
             <form action="../index.html" id="login">
                 <label for="email">Email</label>
-                <input type="email" id="email">
+                <input type="email" id="email" required>
 
                 <label for="password">Password</label>
-                <input type="password" id="password">
+                <input type="password" id="password" required>
 
                 <input type="submit" id="submit" value="Sign in">
             </form>
 
-            <p class="sign-up">Don't have an account? <a href="#">Register</a></p>
+            <p class="account">Don't have an account? <span>Register</span></p>
         </div>
+
+        <div class="form-container register">
+            <div class="welcome-box">
+                <h1 id="welcome">Register</h1>
+                <p class="subtext">Create an account</p>
+            </div>
+
+            <form action="../index.html" id="register">
+                <label for="email">Username</label>
+                <input type="text" id="username" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" required>
+
+                <input type="submit" id="submit" value="Register">
+            </form>
+
+            <p class="account">Already have an account? <span>Login</span></p>
+        </div>
+    </div>
     </div>
 </body>
 

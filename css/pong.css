@@ -17,10 +17,15 @@ body {
     transform: translate(-50%, -50%);
 }
 
+#canvas {
+    border-radius: 0.5rem;
+}
+
 #camera {
     position: absolute;
     transform: rotateY(180deg);
     opacity: 0.6;
+    border-radius: 0.5rem;
 }
 
 .score {
