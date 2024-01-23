@@ -20,12 +20,12 @@
                 <p class="subtext">Sign in to your account</p>
             </div>
 
-            <form action="../index.html" id="login">
+            <form action="../php/auth.php" method="post" id="login">
                 <label for="email">Email</label>
-                <input type="email" id="email" required>
+                <input type="email" id="email" name="email" required>
 
                 <label for="password">Password</label>
-                <input type="password" id="password" required>
+                <input type="password" id="password" name="password" required>
 
                 <input type="submit" id="submit" value="Sign in">
             </form>
@@ -39,22 +39,21 @@
                 <p class="subtext">Create an account</p>
             </div>
 
-            <form action="../index.html" id="register">
+            <form action="../php/auth.php" method="post" id="register">
                 <label for="email">Username</label>
-                <input type="text" id="username" required>
+                <input type="text" id="username" name="newUsername" required>
 
                 <label for="email">Email</label>
-                <input type="email" id="email" required>
+                <input type="email" id="email" name="newEmail" required>
 
                 <label for="password">Password</label>
-                <input type="password" id="password" required>
+                <input type="password" id="password" name="newPassword" required>
 
                 <input type="submit" id="submit" value="Register">
             </form>
 
             <p class="account">Already have an account? <span>Login</span></p>
         </div>
-    </div>
     </div>
 </body>
 
