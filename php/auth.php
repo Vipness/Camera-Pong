@@ -1,12 +1,12 @@
 <?php
 include("./connection.php");
 
-if (isset($_POST["email"]) && isset($_POST["password"])) {
+if (isset($_POST["username"]) && isset($_POST["password"])) {
     // Login form
-    $email = $_POST["email"];
+    $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $sql = "SELECT * FROM player WHERE email = '$email'";
+    $sql = "SELECT * FROM player WHERE username = '$username'";
     $result = $conn->query($sql);
     $dataRow = $result->fetch_assoc();
 
