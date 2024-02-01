@@ -115,7 +115,7 @@ label {
     margin: 0;
 }
 
-.login a {
+.login a, .logout {
     color: var(--primary);
     text-decoration: none;
     margin-left: 0.2em;

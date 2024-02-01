@@ -26,7 +26,7 @@
             }
             else{
                 $user = $_SESSION['username'];
-                echo "<p class='userWelcome'>Welcome, $user!</p>";
+                echo "<p class='userWelcome'>Welcome, $user! <a href='./php/logout.php' class='logout'>Logout</a></p>";
             }
         ?>
     </div>
