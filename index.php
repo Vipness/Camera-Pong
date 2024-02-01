@@ -10,15 +10,6 @@
     <title>Camera Pong</title>
 </head>
 
-<?php
-    session_start();
-    if(!isset($_SESSION['username'])){
-        header("Location: ./subpages/login.html");
-    }
-
-    $user = $_SESSION['username'];
-?>
-
 <body>
     <div class="wrapper">
         <h1>Camera Pong</h1>
@@ -27,9 +18,16 @@
         <input type="range" min="2" max="6" value="3" id="rounds">
 
         <button class="btnStart"><a href="./subpages/pong.html">Start Game</a></button>
-        <p class="login">Want to save your score? <a href="./subpages/login.html">Login</a></p>
+
         <?php
-            echo "Welcome, $user!";
+            session_start();
+            if(!isset($_SESSION['username'])){
+                echo "<p class='login'>Want to save your score? <a href='./subpages/login.html'>Login</a></p>";
+            }
+            else{
+                $user = $_SESSION['username'];
+                echo "<p class='userWelcome'>Welcome, $user!</p>";
+            }
         ?>
     </div>
 </body>

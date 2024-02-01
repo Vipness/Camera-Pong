@@ -1,5 +1,5 @@
 <?php
-    include("./connection.php");
+    include_once("./connection.php");
     session_start(); // Start the session
 
     if (isset($_POST["username"]) && isset($_POST["password"])) {

@@ -25,6 +25,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 1em;
+    color: var(--text);
 }
 
 h1 {
@@ -118,4 +119,9 @@ label {
     color: var(--primary);
     text-decoration: none;
     margin-left: 0.2em;
+}
+
+.userWelcome {
+    color: white;
+    margin: 0;
 }
