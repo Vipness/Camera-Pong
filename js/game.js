@@ -2,19 +2,17 @@ const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 
 let computerPaddle, playerPaddle;
-let ball;
-let camera;
+let ball, camera;
 let isAnimating = true;
+let color = { r: 84, g: 152, b: 83 }
 
 const wrapper = document.querySelector(".wrapper");
 const playerScoreElem = document.querySelector("#player-score");
 const computerScoreElem = document.querySelector("#computer-score");
-//const color = [70, 12, 20];
 const numOfRounds = sessionStorage.getItem("numOfRounds");
 
 canvas.width = 640;
 canvas.height = 480;
-
 clearCanvas();
 reset();
 
@@ -133,22 +131,14 @@ function animateCamera() {
 
     cameraCtx.drawImage(video, 0, 0, camera.width, camera.height);
     const imgData = cameraCtx.getImageData(0, 0, camera.width, camera.height);
-    console.log(imgData.data[0], imgData.data[1], imgData.data[2]);
     imgData.willReadFrequently = true;
+    console.log(imgData.data[0], imgData.data[1], imgData.data[2]);
 
-    // [70, 12, 20];
-    const locations = getLocationsWithColor(imgData, { r: 60, g: 12, b: 20 });
+    const locations = getLocationsWithColor(imgData, color);
     if (locations.length > 0) {
         const center = average(locations);
         playerPaddle.playerMove(center.y);
-        // draw circle at center of pen
-        cameraCtx.beginPath();
-        cameraCtx.arc(center.x, center.y, 8, 0, 2 * Math.PI, false);
-        cameraCtx.fillStyle = 'green';
-        cameraCtx.fill();
-        cameraCtx.lineWidth = 4;
-        cameraCtx.strokeStyle = '#003300';
-        cameraCtx.stroke();
+        drawCircle(cameraCtx, center); // draw circle at center of pen
     }
 
     if (isAnimating) window.requestAnimationFrame(animateCamera);
@@ -176,7 +166,7 @@ function getLocationsWithColor(imgData, color) {
     return locations;
 }
 
-function colorsMatch(pxColor, color, threshold = 35) {
+function colorsMatch(pxColor, color, threshold = 25) {
     return sqDistance(pxColor, color) < threshold ** 2;
 }
 
@@ -200,4 +190,14 @@ function average(locations) {
     result.x /= locations.length;
     result.y /= locations.length;
     return result;
+}
+
+function drawCircle(cameraCtx, center) {
+    cameraCtx.beginPath();
+    cameraCtx.arc(center.x, center.y, 8, 0, 2 * Math.PI, false);
+    cameraCtx.fillStyle = 'green';
+    cameraCtx.fill();
+    cameraCtx.lineWidth = 4;
+    cameraCtx.strokeStyle = '#003300';
+    cameraCtx.stroke();
 }
