@@ -26,18 +26,18 @@ header>h1 {
 }
 
 header>p,
-header #timer {
+header #timerNum {
     font-size: 1.3rem;
     margin: 0;
 }
 
-.timerTxt {
+.subtitle {
     display: none;
     border-bottom: 2px solid var(--primary);
     box-shadow: 0px 4px 8px -6px var(--primary);
 }
 
-header #timer {
+header #timerNum {
     color: var(--primary);
 }
 

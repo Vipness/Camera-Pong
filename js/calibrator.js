@@ -1,6 +1,8 @@
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 const wrapper = document.querySelector(".wrapper");
+const subtitle = document.querySelector(".subtitle");
+const timerNum = document.querySelector("#timerNum");
 
 let isAnimating = true;
 let camera;
@@ -10,10 +12,6 @@ canvas.width = 640;
 canvas.height = 480;
 ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-ctx.fillStyle = "yellow";
-ctx.fillRect(canvas.width - 20, 0, 20, 20)
-
-// player controller
 document.body.addEventListener("load", main());
 function main() {
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -33,7 +31,15 @@ function main() {
         })
 }
 
+function handlePermDenied() {
+    subtitle.innerHTML = "Please turn on camera and refresh"
+    subtitle.style.display = "block";
+}
+
 function animateCamera() {
+    ctx.fillStyle = "yellow";
+    ctx.fillRect(canvas.width - 20, 0, 20, 20)
+
     const cameraCtx = camera.getContext("2d");
 
     camera.width = canvas.width;
@@ -49,24 +55,24 @@ function animateCamera() {
 
     let newColor = { r: imgData.data[0], g: imgData.data[1], b: imgData.data[2] };
     if (!colorsMatch(newColor, color)) {
-        // countdown from 3 -> "screenshot" -> capture color and save
         let countDownTimer = 3;
-        document.querySelector("#timer").textContent = countDownTimer;
-        document.querySelector(".timerTxt").style.display = "block";
+        timerNum.textContent = countDownTimer;
+        subtitle.style.display = "block";
 
         const countDownInterval = setInterval(() => {
             countDownTimer--;
-            document.querySelector("#timer").textContent = countDownTimer;
+            timerNum.textContent = countDownTimer;
 
             if (countDownTimer <= 0) {
                 clearInterval(countDownInterval);
-                // alert("Screenshot");
-                window.cancelAnimationFrame(this);
+                window.cancelAnimationFrame(animateCamera);
                 isAnimating = false;
 
+                subtitle.innerHTML = "Configuration complete. Redirecting..."
+                sessionStorage.setItem("color", JSON.stringify(newColor));
                 setTimeout(() => {
                     window.location.assign("../index.php");
-                }, 1000);
+                }, 1500);
             }
         }, 1000);
     }

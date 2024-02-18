@@ -18,6 +18,7 @@
         <input type="range" min="2" max="6" value="3" id="rounds">
 
         <button class="btnStart"><a href="./subpages/pong.html">Start Game</a></button>
+        <button><a href="./subpages/calibrator.html">Calibrate Color</a></button>
 
         <?php
             session_start();
