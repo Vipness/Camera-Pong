@@ -64,23 +64,23 @@ form input {
     color: var(--text);
 }
 
-form input:not(#submit) {
+form input:not(.submit) {
     background: transparent;
     outline: none;
     border: 2px solid var(--shadow);
 }
 
-#password {
+.password {
     margin-bottom: 1em;
 }
 
-form input:not(#submit):focus,
-form input:not(#submit):hover {
+form input:not(.submit):focus,
+form input:not(.submit):hover {
     border-color: var(--accent);
     box-shadow: 0px 0px 20px -10px var(--accent);
 }
 
-#submit {
+.submit {
     border: none;
     background-color: var(--primary);
     cursor: pointer;
