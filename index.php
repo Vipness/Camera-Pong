@@ -25,7 +25,7 @@
         <?php
             session_start();
             if(!isset($_SESSION['username'])){
-                echo "<p class='login'>Want to save your score? <a href='./subpages/login.html'>Login</a></p>";
+                echo "<p class='login'>Want to save your score? <a href='./subpages/login.php'>Login</a></p>";
             }
             else{
                 $user = $_SESSION['username'];

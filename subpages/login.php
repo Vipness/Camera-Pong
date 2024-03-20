@@ -10,6 +10,57 @@
     <title>Camera Pong</title>
 </head>
 
+<?php
+    include_once("../php/connection.php");
+    session_start(); // Start the session
+
+    $error = "";
+
+    if (isset($_POST["username"]) && isset($_POST["password"])) {
+        // Login form
+        $username = $_POST["username"];
+        $password = $_POST["password"];
+
+        $sql = "SELECT * FROM player WHERE username = '$username'";
+        $result = $conn->query($sql);
+        $dataRow = $result->fetch_assoc();
+
+        if ($dataRow !== null && password_verify($password, $dataRow["password"])) {
+            $_SESSION['username'] = $username;
+            header("Location: ../index.php");
+        } 
+        else {
+            $error = "Invalid login information!";
+        }
+    } 
+    elseif (isset($_POST["newUsername"]) && isset($_POST["newEmail"]) && isset($_POST["newPassword"])) {
+        // Register form
+        $email = $_POST["newEmail"];
+        $password = password_hash($_POST["newPassword"], PASSWORD_DEFAULT);
+        $username = $_POST["newUsername"];
+
+        $checkForUser = "SELECT * FROM player WHERE email = '" . $conn->real_escape_string($email) . "' OR username = '" . $conn->real_escape_string($username) . "'";
+        $result = $conn->query($checkForUser);
+
+        if ($result->num_rows == 0) {
+            $add = "INSERT INTO player(email, password, username) VALUES ('$email', '$password', '$username')";
+
+            if ($conn->query($add) !== TRUE) {
+                echo "Error: " . $add . "<br>" . $conn->error;
+            }
+
+            $_SESSION['username'] = $username;
+            header("Location: ../index.php");
+        } 
+        else {
+            $error = "User already exists!";
+        }
+    }
+
+    $conn->close();
+?>
+
+
 <body>
     <div class="wrapper">
         <div class="image"></div>
@@ -20,13 +71,14 @@
                 <p class="subtext">Sign in to your account</p>
             </div>
 
-            <form action="../php/auth.php" method="post" id="login">
+            <form method="post" id="login">
                 <label for="email">Username</label>
                 <input type="text" id="username" name="username" class="username" autocomplete="username" required>
 
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" class="password" autocomplete="off" required>
 
+                <span class="errorMessage"><?php echo "$error"; ?></span>
                 <input type="submit" id="loginSubmit" class="submit" value="Sign in">
             </form>
 
@@ -39,7 +91,7 @@
                 <p class="subtext">Create an account</p>
             </div>
 
-            <form action="../php/auth.php" method="post" id="register">
+            <form method="post" id="register">
                 <label for="email">Username</label>
                 <input type="text" id="newUsername" name="newUsername" class="username" required>
 

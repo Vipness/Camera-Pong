@@ -70,7 +70,8 @@ form input:not(.submit) {
     border: 2px solid var(--shadow);
 }
 
-.password {
+.password,
+.errorMessage {
     margin-bottom: 1em;
 }
 
@@ -85,6 +86,10 @@ form input:not(.submit):hover {
     background-color: var(--primary);
     cursor: pointer;
     box-shadow: 0px 0px 30px -10px var(--primary);
+}
+
+.errorMessage {
+    color: #ffe066;
 }
 
 .account {
