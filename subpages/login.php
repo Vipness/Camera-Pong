@@ -21,7 +21,7 @@
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        $sql = "SELECT * FROM player WHERE username = '$username'";
+        $sql = "SELECT * FROM player WHERE username = '$username';";
         $result = $conn->query($sql);
         $dataRow = $result->fetch_assoc();
 
@@ -29,32 +29,32 @@
             $_SESSION['username'] = $username;
             header("Location: ../index.php");
         } 
-        else {
-            $error = "Invalid login information!";
-        }
+        else { $error = "Invalid login information!"; }
     } 
-    elseif (isset($_POST["newUsername"]) && isset($_POST["newEmail"]) && isset($_POST["newPassword"])) {
+    elseif (isset($_POST["newUsername"]) && isset($_POST["newEmail"]) && isset($_POST["newPassword"]) && isset($_POST["repeatNewPassword"])) {
         // Register form
-        $email = $_POST["newEmail"];
-        $password = password_hash($_POST["newPassword"], PASSWORD_DEFAULT);
         $username = $_POST["newUsername"];
+        $email = $_POST["newEmail"];
+        $password = $_POST["newPassword"];
+        $repeatPassword = $_POST["repeatNewPassword"];
 
-        $checkForUser = "SELECT * FROM player WHERE email = '" . $conn->real_escape_string($email) . "' OR username = '" . $conn->real_escape_string($username) . "'";
-        $result = $conn->query($checkForUser);
+        if($password == $repeatPassword){
+            $password = password_hash($password, PASSWORD_DEFAULT);
 
-        if ($result->num_rows == 0) {
-            $add = "INSERT INTO player(email, password, username) VALUES ('$email', '$password', '$username')";
-
-            if ($conn->query($add) !== TRUE) {
-                echo "Error: " . $add . "<br>" . $conn->error;
-            }
-
-            $_SESSION['username'] = $username;
-            header("Location: ../index.php");
-        } 
-        else {
-            $error = "User already exists!";
+            $checkForUser = "SELECT * FROM player WHERE email = '" . $conn->real_escape_string($email) . "' OR username = '" . $conn->real_escape_string($username) . "'";
+            $result = $conn->query($checkForUser);
+    
+            if ($result->num_rows == 0) {
+                $add = "INSERT INTO player(email, password, username) VALUES ('$email', '$password', '$username');";
+    
+                if ($conn->query($add) !== TRUE) { echo "Error: " . $add . "<br>" . $conn->error; }
+    
+                $_SESSION['username'] = $username;
+                header("Location: ../index.php");
+            } 
+            else { $error = "Username or email already taken!"; }
         }
+        else{ $error = "Passwords do not match!"; }
     }
 
     $conn->close();
@@ -103,6 +103,7 @@
 
                 <label for="repeatNewPassword">Confirm Password</label>
                 <input type="password" id="repeatNewPassword" name="repeatNewPassword" class="password" autocomplete="off" required>
+                <span id="passwordErrorMessage" class="errorMessage"></span>
 
                 <input type="submit" id="registerSubmit" class="submit" value="Register">
             </form>
