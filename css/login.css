@@ -70,9 +70,9 @@ form input:not(.submit) {
     border: 2px solid var(--shadow);
 }
 
-.password,
+#repeatNewPassword,
 .errorMessage {
-    margin-bottom: 1em;
+    margin-bottom: 15px;
 }
 
 form input:not(.submit):focus,

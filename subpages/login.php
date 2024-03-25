@@ -92,14 +92,17 @@
             </div>
 
             <form method="post" id="register">
-                <label for="email">Username</label>
+                <label for="newUsername">Username</label>
                 <input type="text" id="newUsername" name="newUsername" class="username" required>
 
                 <label for="email">Email</label>
                 <input type="email" id="email" name="newEmail" autocomplete="off" required>
 
-                <label for="password">Password</label>
+                <label for="newPassword">Password</label>
                 <input type="password" id="newPassword" name="newPassword" class="password" autocomplete="off" required>
+
+                <label for="repeatNewPassword">Confirm Password</label>
+                <input type="password" id="repeatNewPassword" name="repeatNewPassword" class="password" autocomplete="off" required>
 
                 <input type="submit" id="registerSubmit" class="submit" value="Register">
             </form>
