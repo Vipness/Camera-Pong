@@ -31,30 +31,24 @@
         } 
         else { $error = "Invalid login information!"; }
     } 
-    elseif (isset($_POST["newUsername"]) && isset($_POST["newEmail"]) && isset($_POST["newPassword"]) && isset($_POST["repeatNewPassword"])) {
+    elseif (isset($_POST["newUsername"]) && isset($_POST["newEmail"]) && isset($_POST["newPassword"])) {
         // Register form
         $username = $_POST["newUsername"];
         $email = $_POST["newEmail"];
-        $password = $_POST["newPassword"];
-        $repeatPassword = $_POST["repeatNewPassword"];
+        $password = password_hash($_POST["newPassword"], PASSWORD_DEFAULT);
 
-        if($password == $repeatPassword){
-            $password = password_hash($password, PASSWORD_DEFAULT);
+        $checkForUser = "SELECT * FROM player WHERE email = '" . $conn->real_escape_string($email) . "' OR username = '" . $conn->real_escape_string($username) . "'";
+        $result = $conn->query($checkForUser);
 
-            $checkForUser = "SELECT * FROM player WHERE email = '" . $conn->real_escape_string($email) . "' OR username = '" . $conn->real_escape_string($username) . "'";
-            $result = $conn->query($checkForUser);
-    
-            if ($result->num_rows == 0) {
-                $add = "INSERT INTO player(email, password, username) VALUES ('$email', '$password', '$username');";
-    
-                if ($conn->query($add) !== TRUE) { echo "Error: " . $add . "<br>" . $conn->error; }
-    
-                $_SESSION['username'] = $username;
-                header("Location: ../index.php");
-            } 
-            else { $error = "Username or email already taken!"; }
-        }
-        else{ $error = "Passwords do not match!"; }
+        if ($result->num_rows == 0) {
+            $add = "INSERT INTO player(email, password, username) VALUES ('$email', '$password', '$username')";
+
+            if ($conn->query($add) !== TRUE) { echo "Error: " . $add . "<br>" . $conn->error; }
+
+            $_SESSION['username'] = $username;
+            header("Location: ../index.php");
+        } 
+        else { $error = "User already exists!"; }
     }
 
     $conn->close();

@@ -1,5 +1,4 @@
 const accountBtn = document.querySelectorAll(".account span");
-
 accountBtn.forEach(btn => {
     btn.addEventListener("click", () => {
         switch (btn.textContent) {
@@ -10,14 +9,14 @@ accountBtn.forEach(btn => {
     })
 });
 
-const newPassword = document.querySelector("#newPassword");
-const repeatNewPassword = document.querySelector("#repeatNewPassword");
+const registerForm = document.querySelector("#register");
+registerForm.addEventListener("submit", (event) => {
+    const newPassword = document.querySelector("#newPassword");
+    const repeatNewPassword = document.querySelector("#repeatNewPassword");
 
-repeatNewPassword.addEventListener("change", () => {
     if (repeatNewPassword.value !== newPassword.value) {
+        event.preventDefault();
         document.querySelector("#passwordErrorMessage").textContent = "Passwords do not match!"
     }
-    else {
-        document.querySelector("#passwordErrorMessage").textContent = "";
-    }
+    else document.querySelector("#passwordErrorMessage").textContent = "";
 })
