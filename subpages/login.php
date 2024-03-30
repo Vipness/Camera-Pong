@@ -21,15 +21,18 @@
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        $sql = "SELECT * FROM player WHERE username = '$username';";
-        $result = $conn->query($sql);
+        $sql = "SELECT * FROM player WHERE username = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $dataRow = $result->fetch_assoc();
 
         if ($dataRow !== null && password_verify($password, $dataRow["password"])) {
             $_SESSION['username'] = $username;
             header("Location: ../index.php");
         } 
-        else { $error = "Invalid login information!"; }
+        else { $error = "Invalid username or password!"; } 
     } 
     elseif (isset($_POST["newUsername"]) && isset($_POST["newEmail"]) && isset($_POST["newPassword"])) {
         // Register form
@@ -37,16 +40,22 @@
         $email = $_POST["newEmail"];
         $password = password_hash($_POST["newPassword"], PASSWORD_DEFAULT);
 
-        $checkForUser = "SELECT * FROM player WHERE email = '" . $conn->real_escape_string($email) . "' OR username = '" . $conn->real_escape_string($username) . "'";
-        $result = $conn->query($checkForUser);
+        $checkForUser = "SELECT * FROM player WHERE email = ? OR username = ?";
+        $stmt = $conn->prepare($checkForUser);
+        $stmt->bind_param("ss", $email, $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
         if ($result->num_rows == 0) {
-            $add = "INSERT INTO player(email, password, username) VALUES ('$email', '$password', '$username')";
+            $add = "INSERT INTO player(email, password, username) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($add);
+            $stmt->bind_param("sss", $email, $password, $username);
 
-            if ($conn->query($add) !== TRUE) { echo "Error: " . $add . "<br>" . $conn->error; }
-
-            $_SESSION['username'] = $username;
-            header("Location: ../index.php");
+            if ($stmt->execute()) {
+                $_SESSION['username'] = $username;
+                header("Location: ../index.php");
+            } 
+            else { echo "Error: " . $add . "<br>" . $conn->error; }
         } 
         else { $error = "User already exists!"; }
     }
