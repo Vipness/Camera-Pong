@@ -4,11 +4,9 @@ const ctx = canvas.getContext("2d");
 let computerPaddle, playerPaddle;
 let ball, camera;
 let isAnimating = true;
-let color = { r: 84, g: 152, b: 83 }
+let color = { r: 84, g: 152, b: 83 };
 
-if (sessionStorage.getItem("color")) {
-    color = JSON.parse(sessionStorage.getItem("color"))
-}
+if (sessionStorage.getItem("color")) color = JSON.parse(sessionStorage.getItem("color"));
 
 const wrapper = document.querySelector(".wrapper");
 const playerScoreElem = document.querySelector("#player-score");
@@ -64,13 +62,15 @@ function stopGame(playerScore, computerScore) {
 }
 
 function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function reset() {
-    computerPaddle = new Paddle(10, (canvas.height / 2) - 25)
-    playerPaddle = new Paddle(canvas.width - 20, (canvas.height / 2) - 25)
-    ball = new Ball(canvas.width / 2, canvas.height / 2)
+    computerPaddle = new Paddle(10, (canvas.height / 2) - 25);
+    playerPaddle = new Paddle(canvas.width - 20, (canvas.height / 2) - 25);
+    ball = new Ball(canvas.width / 2, canvas.height / 2);
+
+    if (sessionStorage.getItem("ballSpeed")) ball.vel = sessionStorage.getItem("ballSpeed");
 }
 
 function randomNumberBetween(min, max) {

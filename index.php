@@ -17,6 +17,9 @@
         <label for="rounds">Number of rounds: <span id="roundsText"></span></label>
         <input type="range" min="2" max="6" value="3" id="rounds">
 
+        <label for="speed">Speed: <span id="speedText"></span></label>
+        <input type="range" min="2" max="10" value="4" id="speed">
+
         <div class="buttons">
             <button class="btnStart"><a href="./subpages/pong.html">Start Game</a></button>
             <button class="btnCalibrate"><a href="./subpages/calibrator.html">Calibrate Color</a></button>
