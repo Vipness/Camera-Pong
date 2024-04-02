@@ -8,8 +8,9 @@ class Paddle {
     }
 
     update() {
+        this.y = Math.max(0, Math.min(canvas.height - this.height, this.y)); // ensure the paddle stays within the vertical boundaries
         this.draw();
-        this.velIncrease += 0.0008;
+        this.velIncrease += 0.00006;
     }
 
     compMove(ballY) {
