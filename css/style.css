@@ -5,41 +5,114 @@
     font-family: var(--font);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    height: 100vh;
     margin: 0;
     background-color: var(--background);
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.page {
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.wrapper {
-    width: 22em;
-    margin: 0 auto;
-    padding: 2em;
-    color: var(--text);
-    background-color: var(--secondary);
-    border-radius: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1em;
-}
-
-h1 {
+h1,
+h2 {
     color: var(--text);
     margin: 0;
     font-weight: 600;
     text-align: center;
 }
 
-label {
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+button {
+    border-radius: 5px;
+    padding: 15px;
+    cursor: pointer;
+}
+
+button a {
+    color: white;
+    text-decoration: none;
     font-size: 1.2rem;
-    color: var(--text);
+}
+
+.buttons button a {
+    padding: 1rem 3.5rem;
+}
+
+.btnPlay {
+    border: none;
+    background-color: var(--primary);
+    box-shadow: 0px 0px 30px -10px var(--primary);
+}
+
+.btnInactive {
+    background: transparent;
+    outline: none;
+    border: 2px solid var(--shadow);
+}
+
+.btnInactive:hover {
+    border-color: var(--accent);
+    box-shadow: 0px 0px 20px -10px var(--accent);
+}
+
+/* inserted by PHP */
+.login,
+.userWelcome {
+    color: rgba(248, 242, 241, 0.8);
     text-align: center;
+    font-weight: 300;
+}
+
+.login a,
+.logout {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+h2 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.settings {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 15px;
+    margin-bottom: 30px;
+}
+
+.settings label {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--text);
     cursor: text;
+}
+
+.setting>span {
+    color: var(--text);
+    margin-left: 5px;
 }
 
 /*********** Baseline, reset range styles ***********/
@@ -94,56 +167,19 @@ input[type="range"]::-moz-range-thumb {
     box-shadow: 0px 0px 8px var(--primary);
 }
 
-.buttons {
+.settings-buttons {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
-.buttons button {
-    border-radius: 0.4em;
-    padding: 0.8em 0;
-    cursor: pointer;
+.settings-buttons button {
+    padding: 10px 35px;
 }
 
-.buttons button a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-    padding: 1em 1.5em;
+.settings-buttons button a {
+    font-size: 1rem;
 }
 
-.btnStart {
-    border: none;
-    background-color: var(--primary);
-    box-shadow: 0px 0px 30px -10px var(--primary);
-}
-
-.btnCalibrate {
-    background: transparent;
-    outline: none;
-    border: 2px solid var(--shadow);
-}
-
-.btnCalibrate:hover {
-    border-color: var(--accent);
-    box-shadow: 0px 0px 20px -10px var(--accent);
-}
-
-/* inserted by PHP */
-.login {
-    color: var(--text);
-    margin: 0;
-}
-
-.login a,
-.logout {
-    color: var(--primary);
-    text-decoration: none;
-    margin-left: 0.2em;
-}
-
-.userWelcome {
-    color: white;
-    margin: 0;
+.settings-buttons .btnPlay {
+    flex: 1;
 }
