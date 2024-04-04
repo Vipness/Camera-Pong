@@ -38,23 +38,31 @@
             <h2>Settings</h2>
 
             <div class="settings">
-                <label for="rounds">Number of rounds</label>
-                <div class="setting">
-                    <input type="range" min="2" max="6" value="3" id="rounds">
-                    <span id="roundsText"></span>
+                <div class="roundsSetting">
+                    <label for="rounds">Number of rounds</label>
+                    <div>
+                        <input type="range" min="2" max="6" value="3" id="rounds">
+                        <span id="roundsText"></span>
+                    </div>
                 </div>
 
-                <label for="speed">Difficulty</label>
-                <div class="setting">
-                    <input type="range" min="2" max="8" value="4" id="speed">
-                    <span id="speedText"></span>
-                </div>
+                <p id="difficulty">Difficulty</p>
+                <div class="difficulty">
+                    <input type="radio" id="easy" name="difficulty" value="2">
+                    <label for="easy">Easy</label>
+
+                    <input type="radio" id="medium" name="difficulty" value="4">
+                    <label for="medium">Medium</label>
+
+                    <input type="radio" id="hard" name="difficulty" value="6">
+                    <label for="hard">Hard</label>
+                </div>    
             </div>
 
             <div class="settings-buttons">
                 <button class="btnInactive"><a href="#">Back</a></button>
                 <button class="btnPlay"><a href="./subpages/pong.html">Start Game</a></button>
-            </div>  
+            </div>
         </div>
     </div>
 </body>
