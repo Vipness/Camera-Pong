@@ -40,20 +40,19 @@ h2 {
     margin-bottom: 15px;
 }
 
-button {
+.buttons a,
+.settings-buttons a {
     border-radius: 5px;
     padding: 15px;
     cursor: pointer;
+    padding: 15px 50px;
+    text-align: center;
 }
 
-button a {
+a {
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
-}
-
-.buttons button a {
-    padding: 1rem 3.5rem;
 }
 
 .btnPlay {
@@ -85,6 +84,8 @@ button a {
 .logout {
     color: var(--primary);
     text-decoration: none;
+    font-size: 1rem;
+    font-weight: 400;
 }
 
 h2 {
@@ -224,14 +225,12 @@ input[type="range"]::-moz-range-thumb {
     gap: 20px;
 }
 
-.settings-buttons button {
+.settings-buttons a {
     padding: 10px 35px;
-}
-
-.settings-buttons button a {
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 .settings-buttons .btnPlay {
     flex: 1;
+    padding-top: 12px;
 }
