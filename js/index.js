@@ -1,15 +1,17 @@
 const rounds = document.querySelector("#rounds");
 const roundsText = document.querySelector("#roundsText");
-// const speed = document.querySelector("#speed");
-// const speedText = document.querySelector("#speedText");
+const radioButtons = document.querySelectorAll('input[name="difficulty"]');
 
 window.addEventListener("load", updateText);
 rounds.addEventListener("input", updateText);
-// speed.addEventListener("input", updateText);
 
 function updateText() {
     sessionStorage.setItem("numOfRounds", rounds.value);
-    // sessionStorage.setItem("ballSpeed", speed.value);
     roundsText.textContent = ` ${sessionStorage.getItem("numOfRounds")}`;
-    // speedText.textContent = ` ${sessionStorage.getItem("ballSpeed")}`;
 }
+
+radioButtons.forEach(radioButton => {
+    radioButton.addEventListener("change", () => {
+        sessionStorage.setItem("difficulty", radioButton.value);
+    })
+})

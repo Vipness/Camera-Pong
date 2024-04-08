@@ -70,7 +70,7 @@ function reset() {
     playerPaddle = new Paddle(canvas.width - 20, (canvas.height / 2) - 25);
     ball = new Ball(canvas.width / 2, canvas.height / 2);
 
-    if (sessionStorage.getItem("ballSpeed")) ball.vel = sessionStorage.getItem("ballSpeed");
+    if (sessionStorage.getItem("difficulty")) ball.vel = sessionStorage.getItem("difficulty");
 }
 
 function randomNumberBetween(min, max) {
