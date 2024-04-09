@@ -48,7 +48,7 @@
 
                 <p id="difficulty">Difficulty</p>
                 <div class="difficulty">
-                    <input type="radio" id="easy" name="difficulty" value="2">
+                    <input type="radio" id="easy" name="difficulty" value="2" checked>
                     <label for="easy">Easy</label>
 
                     <input type="radio" id="medium" name="difficulty" value="4">

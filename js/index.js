@@ -15,3 +15,9 @@ radioButtons.forEach(radioButton => {
         sessionStorage.setItem("difficulty", radioButton.value);
     })
 })
+
+window.addEventListener("load", () => {
+    radioButtons.forEach(radioButton => {
+        if (radioButton.checked) sessionStorage.setItem("difficulty", radioButton.value);
+    })
+})
