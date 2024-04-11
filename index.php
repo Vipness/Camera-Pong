@@ -17,13 +17,13 @@
         <div class="menu">
             <div class="buttons">
                 <a href="#settings" class="btnPlay">Play</a>
-                <a href="./subpages/calibrator.html" class="btnInactive">Calibrate Color</a>
+                <a href="./calibrator.html" class="btnInactive">Calibrate Color</a>
             </div>
 
             <?php
                 session_start();
                 if(!isset($_SESSION['username'])){
-                    echo "<p class='login'>Want to save your score? <a href='./subpages/login.php'>Login</a></p>";
+                    echo "<p class='login'>Want to save your score? <a href='./login.php'>Login</a></p>";
                 }
                 else{
                     $user = $_SESSION['username'];
@@ -61,7 +61,7 @@
 
             <div class="settings-buttons">
                 <a href="#" class="btnInactive">Back</a>
-                <a href="./subpages/pong.html" class="btnPlay">Start Game</a>
+                <a href="./pong.html" class="btnPlay">Start Game</a>
             </div>
         </div>
     </div>

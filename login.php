@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/variables.css">
-    <link rel="stylesheet" href="../css/login.css">
-    <script src="../js/login.js" defer></script>
+    <link rel="stylesheet" href="./css/variables.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <script src="./js/login.js" defer></script>
     <title>Camera Pong</title>
 </head>
 
 <?php
-    include_once("../php/connection.php");
+    include_once("./php/connection.php");
     session_start(); // Start the session
 
     $error = "";
@@ -30,7 +30,7 @@
 
         if ($dataRow !== null && password_verify($password, $dataRow["password"])) {
             $_SESSION['username'] = $username;
-            header("Location: ../index.php");
+            header("Location: ./index.php");
         } 
         else { $error = "Invalid username or password!"; } 
     } 
@@ -53,7 +53,7 @@
 
             if ($stmt->execute()) {
                 $_SESSION['username'] = $username;
-                header("Location: ../index.php");
+                header("Location: ./index.php");
             } 
             else { echo "Error: " . $add . "<br>" . $conn->error; }
         } 
