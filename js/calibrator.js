@@ -2,6 +2,7 @@ const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 const wrapper = document.querySelector(".wrapper");
 const subtitle = document.querySelector(".subtitle");
+const instruction = document.querySelector(".instruction");
 const timerNum = document.querySelector("#timerNum");
 
 let isAnimating = true;
@@ -34,6 +35,7 @@ function main() {
 function handlePermDenied() {
     subtitle.innerHTML = "Please turn on camera and refresh"
     subtitle.style.display = "block";
+    instruction.style.display = "none";
 }
 
 function animateCamera() {
@@ -71,7 +73,7 @@ function animateCamera() {
                 subtitle.innerHTML = "Configuration complete. Redirecting..."
                 sessionStorage.setItem("color", JSON.stringify(newColor));
                 setTimeout(() => {
-                    window.location.assign("../index.php");
+                    window.location.assign("./index.php");
                 }, 1500);
             }
         }, 1000);

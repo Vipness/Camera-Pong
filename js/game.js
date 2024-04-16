@@ -56,7 +56,7 @@ function stopGame(playerScore, computerScore) {
 
         if (countDownTimer <= 0) {
             clearInterval(countDownInterval);
-            window.location.assign("../index.php");
+            window.location.assign("./index.php");
         }
     }, 1000);
 }
