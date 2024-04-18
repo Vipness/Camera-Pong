@@ -87,25 +87,25 @@ class Ball {
         const hittingComputerTop = (this.y + this.r >= computerPaddle.y) && (this.y + this.r <= computerPaddle.y + this.marginY);
         const hittingComputerBottom = (this.y - this.r <= computerPaddle.y + computerPaddle.height) && (this.y - this.r >= computerPaddle.y + computerPaddle.height - this.marginY);
 
-        if (touchingPlayerPaddle && hittingPlayerTop) { // if the botttom of the ball is touching the top of the player paddle
+        if (touchingPlayerPaddle && hittingPlayerTop) {
             this.x -= playerPaddle.width / 2;
             this.y -= 10;
             this.vel *= -1;
         }
 
-        else if (touchingPlayerPaddle && hittingPlayerBottom) { // if the top of the ball is touching the bottom of the player paddle
+        else if (touchingPlayerPaddle && hittingPlayerBottom) {
             this.x -= playerPaddle.width / 2;
             this.y += 10;
             this.vel *= -1;
         }
 
-        else if (touchingComputerPaddle && hittingComputerTop) { // if the bottom of the ball is touching the top of the computer paddle
+        else if (touchingComputerPaddle && hittingComputerTop) {
             this.x -= computerPaddle.width / 2;
             this.y -= 10;
             this.vel *= -1;
         }
 
-        else if (touchingComputerPaddle && hittingComputerBottom) { // if the top of the ball is touching the bottom of the computer paddle
+        else if (touchingComputerPaddle && hittingComputerBottom) {
             this.x -= computerPaddle.width / 2;
             this.y += 10;
             this.vel *= -1;

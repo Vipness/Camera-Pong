@@ -13,8 +13,6 @@
 
 <body>
     <div class="page">
-        <!-- <h1>Camera Pong</h1> -->
-        
         <div class="menu">
             <div class="buttons">
                 <a href="#settings" class="btnPlay">Play camera pong</a>
