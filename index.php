@@ -16,7 +16,7 @@
         <div class="menu">
             <div class="buttons">
                 <a href="#settings" class="btnPlay">Play camera pong</a>
-                <a href="./calibrator.html" class="btnInactive">Calibrate color</a>
+                <a href="./calibrator.php" class="btnInactive">Calibrate color</a>
             </div>
 
             <?php
@@ -60,7 +60,7 @@
 
             <div class="settings-buttons">
                 <a href="#" class="btnInactive">Back</a>
-                <a href="./pong.html" class="btnPlay">Start game</a>
+                <a href="./pong.php" class="btnPlay">Start game</a>
             </div>
         </div>
     </div>
