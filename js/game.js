@@ -38,6 +38,8 @@ setTimeout(() => {
 }, 2000);
 
 function stopGame(playerScore, computerScore) {
+    updateDb(playerScore, computerScore);
+
     window.cancelAnimationFrame(animateGame);
     window.cancelAnimationFrame(animateCamera);
     isAnimating = false;
@@ -59,6 +61,25 @@ function stopGame(playerScore, computerScore) {
             window.location.assign("./index.php");
         }
     }, 1000);
+}
+
+function updateDb(playerScore, computerScore) {
+    let result = playerScore > computerScore ? "win" : "lose";
+
+    $.ajax({
+        url: './php/updateStats.php',
+        type: 'POST',
+        data: {
+            result: result
+        },
+        dataType: 'json',
+        success: function (response) {
+            console.log(response.message);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
 }
 
 function clearCanvas() {
