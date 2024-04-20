@@ -5,6 +5,7 @@ let computerPaddle, playerPaddle;
 let ball, camera;
 let isAnimating = true;
 let color = { r: 84, g: 152, b: 83 };
+let user = sessionStorage.getItem("user") == "true";
 
 if (sessionStorage.getItem("color")) color = JSON.parse(sessionStorage.getItem("color"));
 
@@ -38,7 +39,7 @@ setTimeout(() => {
 }, 2000);
 
 function stopGame(playerScore, computerScore) {
-    updateDb(playerScore, computerScore);
+    if (user) updateDb(playerScore, computerScore);
 
     window.cancelAnimationFrame(animateGame);
     window.cancelAnimationFrame(animateCamera);

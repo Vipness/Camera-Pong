@@ -17,6 +17,9 @@ radioButtons.forEach(radioButton => {
 })
 
 window.addEventListener("load", () => {
+    let user = document.querySelector(".profile") ? true : false;
+    sessionStorage.setItem("user", user);
+
     radioButtons.forEach(radioButton => {
         if (radioButton.checked) sessionStorage.setItem("difficulty", radioButton.value);
     })
