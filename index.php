@@ -47,13 +47,13 @@
 
                 <p id="difficulty">Difficulty</p>
                 <div class="difficulty">
-                    <input type="radio" id="easy" name="difficulty" value="2" checked>
+                    <input type="radio" id="easy" name="difficulty" value="4" checked>
                     <label for="easy">Easy</label>
 
-                    <input type="radio" id="medium" name="difficulty" value="4">
+                    <input type="radio" id="medium" name="difficulty" value="6">
                     <label for="medium">Medium</label>
 
-                    <input type="radio" id="hard" name="difficulty" value="6">
+                    <input type="radio" id="hard" name="difficulty" value="8">
                     <label for="hard">Hard</label>
                 </div>    
             </div>
