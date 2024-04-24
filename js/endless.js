@@ -2,7 +2,7 @@ const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 
 let computerPaddle, playerPaddle;
-let ball, camera;
+let ball, camera, lastBallSpeed;
 let isAnimating = true;
 let color = { r: 84, g: 152, b: 83 };
 let user = sessionStorage.getItem("user") == "true";
@@ -12,7 +12,6 @@ if (sessionStorage.getItem("color")) color = JSON.parse(sessionStorage.getItem("
 const wrapper = document.querySelector(".wrapper");
 const playerScoreElem = document.querySelector("#player-score");
 const computerScoreElem = document.querySelector("#computer-score");
-const numOfRounds = sessionStorage.getItem("numOfRounds");
 
 canvas.width = 640;
 canvas.height = 480;
@@ -25,13 +24,14 @@ function animateGame() {
     ball.update();
     computerPaddle.compMove(ball.y);
     computerPaddle.update();
+    computerPaddle.velIncrease += 0.00002;
     playerPaddle.update();
 
     if (isLose()) handleLose();
 
     const playerScore = parseInt(playerScoreElem.textContent);
     const computerScore = parseInt(computerScoreElem.textContent);
-    if (playerScore >= numOfRounds || computerScore >= numOfRounds) stopGame(playerScore, computerScore);
+    if (computerScore >= 1) stopGame(playerScore, computerScore);
     if (isAnimating) window.requestAnimationFrame(animateGame);
 }
 setTimeout(() => {
@@ -39,7 +39,7 @@ setTimeout(() => {
 }, 2000);
 
 function stopGame(playerScore, computerScore) {
-    if (user) updateDb(playerScore, computerScore);
+    if (user) updateDb(playerScore);
 
     window.cancelAnimationFrame(animateGame);
     window.cancelAnimationFrame(animateCamera);
@@ -64,14 +64,16 @@ function stopGame(playerScore, computerScore) {
     }, 1000);
 }
 
-function updateDb(playerScore, computerScore) {
-    let result = playerScore > computerScore ? "win" : "lose";
+function updateDb(playerScore) {
+    let score = playerScore;
+    let ballSpeed = Math.round(lastBallSpeed * 100) / 100;
 
     $.ajax({
-        url: './php/updateClassic.php',
+        url: './php/updateEndless.php',
         type: 'POST',
         data: {
-            result: result
+            score: score,
+            ballSpeed: ballSpeed
         },
         dataType: 'json',
         success: function (response) {
@@ -91,8 +93,6 @@ function reset() {
     computerPaddle = new Paddle(10, (canvas.height / 2) - 25);
     playerPaddle = new Paddle(canvas.width - 20, (canvas.height / 2) - 25);
     ball = new Ball(canvas.width / 2, canvas.height / 2);
-
-    if (sessionStorage.getItem("difficulty")) ball.vel = sessionStorage.getItem("difficulty");
 }
 
 function randomNumberBetween(min, max) {
@@ -106,7 +106,10 @@ function isLose() {
 function handleLose() {
     if ((ball.x - ball.r) <= 0) playerScoreElem.textContent = parseInt(playerScoreElem.textContent) + 1;
     else computerScoreElem.textContent = parseInt(computerScoreElem.textContent) + 1;
+
+    lastBallSpeed = Math.abs(ball.vel * ball.velIncrease);
     reset();
+    ball.vel = lastBallSpeed;
 }
 
 function isCollision(ball, paddle) {

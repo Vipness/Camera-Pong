@@ -7,7 +7,7 @@
     $win = ($result == "win") ? 1 : 0;
     $lose = ($result == "lose") ? 1 : 0;
     
-    $update = "UPDATE player SET timesPlayed = timesPlayed + 1, wins = wins + ?, losses = losses + ? WHERE username = ?";
+    $update = "UPDATE player SET classicTimesPlayed = classicTimesPlayed + 1, wins = wins + ?, losses = losses + ? WHERE username = ?";
     $stmt = $conn->prepare($update);
     $stmt->bind_param("iis", $win, $lose, $username);
     

@@ -15,13 +15,14 @@
     session_start();
 
     $username = $_SESSION["username"];
-    $sql = "SELECT timesPlayed, wins, losses FROM player WHERE username = ?;";
+    $sql = "SELECT * FROM player WHERE username = ?;";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
     $dataRow = $result->fetch_assoc();
 
+    $stmt->close();
     $conn->close();
 ?>
 
@@ -30,9 +31,10 @@
         <div class="profile-wrapper">
             <h1>Profile</h1>
 
+            <h2>Classic</h2>
             <div class="stats">
                 <div class="stat">
-                    <p class="value"><?php echo $dataRow["timesPlayed"]; ?></p>
+                    <p class="value"><?php echo $dataRow["classicTimesPlayed"]; ?></p>
                     <p class="label">Times played</p>
                 </div>
                 <div class="stat">
@@ -42,6 +44,22 @@
                 <div class="stat">
                     <p class="value"><?php echo $dataRow["losses"]; ?></p>
                     <p class="label">Total losses</p>
+                </div>
+            </div>
+            
+            <h2>Endless</h2>
+            <div class="stats">
+                <div class="stat">
+                    <p class="value"><?php echo $dataRow["endlessTimesPlayed"]; ?></p>
+                    <p class="label">Times played</p>
+                </div>
+                <div class="stat">
+                    <p class="value"><?php echo $dataRow["bestScore"]; ?></p>
+                    <p class="label">Best score</p>
+                </div>
+                <div class="stat">
+                    <p class="value"><?php echo $dataRow["fastestBall"]; ?></p>
+                    <p class="label">Fastest ball</p>
                 </div>
             </div>
 

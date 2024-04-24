@@ -34,11 +34,11 @@ class Ball {
         this.r = 10;
         this.marginX = 2;
         this.marginY = 5;
-        this.vel = 2;
+        this.vel = 3;
         this.velIncrease = 1;
         this.direction = { x: 0 };
 
-        while (Math.abs(this.direction.x) <= .3 || Math.abs(this.direction.x) >= .9) {
+        while (Math.abs(this.direction.x) <= .5 || Math.abs(this.direction.x) >= .85) {
             const headingTowards = randomNumberBetween(0, 2 * Math.PI)
             this.direction = {
                 x: Math.cos(headingTowards),

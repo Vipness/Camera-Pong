@@ -181,7 +181,7 @@ input[type="range"]::-moz-range-thumb {
 .difficulty {
     position: relative;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     background-color: var(--secondary);
     border-radius: 12px;
 }

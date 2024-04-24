@@ -47,13 +47,13 @@
 
                 <p id="difficulty">Difficulty</p>
                 <div class="difficulty">
-                    <input type="radio" id="easy" name="difficulty" value="4" checked>
+                    <input type="radio" id="easy" name="difficulty" value="3" checked>
                     <label for="easy">Easy</label>
 
-                    <input type="radio" id="medium" name="difficulty" value="6">
+                    <input type="radio" id="medium" name="difficulty" value="5">
                     <label for="medium">Medium</label>
 
-                    <input type="radio" id="hard" name="difficulty" value="8">
+                    <input type="radio" id="hard" name="difficulty" value="7">
                     <label for="hard">Hard</label>
                 </div>    
             </div>
@@ -61,6 +61,7 @@
             <div class="settings-buttons">
                 <a href="#" class="btnInactive">Back</a>
                 <a href="./pong.php" class="btnPlay">Start game</a>
+                <a href="./endless.php" class="btnInactive">Endless</a>
             </div>
         </div>
     </div>
