@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/variables.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/index.css">
     <link rel="icon" type="image/png" href="./img/logo.ico">
     <script src="./js/index.js" defer></script>
     <title>Camera Pong</title>
@@ -60,7 +60,7 @@
 
             <div class="settings-buttons">
                 <a href="#" class="btnInactive">Back</a>
-                <a href="./pong.php" class="btnPlay">Start game</a>
+                <a href="./classic.php" class="btnPlay">Start game</a>
                 <a href="./endless.php" class="btnInactive">Endless</a>
             </div>
         </div>
