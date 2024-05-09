@@ -13,7 +13,7 @@
 
 <?php
     include_once("./php/connection.php");
-    session_start(); // Start the session
+    session_start(); 
 
     $error = "";
 
@@ -67,8 +67,6 @@
 
 <body>
     <div class="wrapper">
-        <div class="image"></div>
-
         <div class="form-container login active">
             <div class="welcome-box">
                 <h1 id="welcome">Login</h1>
@@ -76,7 +74,7 @@
             </div>
 
             <form method="post" id="login">
-                <label for="email">Username</label>
+                <label for="username">Username</label>
                 <input type="text" id="username" name="username" class="username" autocomplete="username" required>
 
                 <label for="password">Password</label>

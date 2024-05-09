@@ -15,28 +15,18 @@ body {
 
 .wrapper {
     background-color: var(--secondary);
-    border-radius: 0.5rem;
+    border-radius: 8px;
     display: flex;
     color: var(--text);
-    width: 50rem;
-}
-
-.image {
-    flex: 9;
-    background-image: url("../img/hero.png");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-top-left-radius: 0.5em;
-    border-bottom-left-radius: 0.5em;
+    width: 450px;
 }
 
 .form-container {
     flex: 10;
-    padding: 3em;
+    padding: 50px;
     display: flex;
     flex-direction: column;
-    gap: 2em;
+    gap: 30px;
 }
 
 .form-container:not(.active) {
@@ -55,12 +45,12 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 8px;
 }
 
 form input {
-    padding: 0.8em;
-    border-radius: 0.4em;
+    padding: 12px;
+    border-radius: 6px;
     color: var(--text);
 }
 
@@ -94,6 +84,5 @@ form input:not(.submit):hover {
 
 .account span {
     color: var(--primary);
-    margin-left: 0.2em;
     cursor: pointer;
 }

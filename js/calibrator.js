@@ -33,7 +33,7 @@ function main() {
 }
 
 function handlePermDenied() {
-    subtitle.innerHTML = "Please turn on camera and refresh"
+    subtitle.innerHTML = "Please turn on camera and refresh";
     subtitle.style.display = "block";
     instruction.style.display = "none";
 }
