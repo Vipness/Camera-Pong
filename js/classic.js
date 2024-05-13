@@ -31,7 +31,10 @@ function animateGame() {
 
     const playerScore = parseInt(playerScoreElem.textContent);
     const computerScore = parseInt(computerScoreElem.textContent);
-    if (playerScore >= numOfRounds || computerScore >= numOfRounds) stopGame(playerScore, computerScore);
+    if (playerScore >= numOfRounds || computerScore >= numOfRounds) {
+        stopGame(playerScore, computerScore);
+        if (user) updateDb(playerScore, computerScore);
+    }
     if (isAnimating) window.requestAnimationFrame(animateGame);
 }
 setTimeout(() => {
@@ -39,8 +42,6 @@ setTimeout(() => {
 }, 2000);
 
 function stopGame(playerScore, computerScore) {
-    if (user) updateDb(playerScore, computerScore);
-
     window.cancelAnimationFrame(animateGame);
     window.cancelAnimationFrame(animateCamera);
     isAnimating = false;
@@ -158,13 +159,12 @@ function animateCamera() {
     cameraCtx.drawImage(video, 0, 0, camera.width, camera.height);
     const imgData = cameraCtx.getImageData(0, 0, camera.width, camera.height);
     imgData.willReadFrequently = true;
-    // console.log(imgData.data[0], imgData.data[1], imgData.data[2]);
 
     const locations = getLocationsWithColor(imgData, color);
     if (locations.length > 0) {
         const center = average(locations);
         playerPaddle.playerMove(center.y);
-        drawCircle(cameraCtx, center); // draw circle at center of pen
+        drawCircle(cameraCtx, center);
     }
 
     if (isAnimating) window.requestAnimationFrame(animateCamera);
@@ -181,7 +181,6 @@ function getLocationsWithColor(imgData, color) {
         };
 
         const pxIndex = i / 4;
-
         const pxLocation = {
             x: pxIndex % imgData.width,
             y: Math.floor(pxIndex / imgData.width)

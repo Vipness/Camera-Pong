@@ -39,7 +39,7 @@ class Ball {
         this.direction = { x: 0 };
 
         while (Math.abs(this.direction.x) <= .5 || Math.abs(this.direction.x) >= .85) {
-            const headingTowards = randomNumberBetween(0, 2 * Math.PI)
+            const headingTowards = randomNumberBetween(0, 2 * Math.PI);
             this.direction = {
                 x: Math.cos(headingTowards),
                 y: Math.sin(headingTowards)

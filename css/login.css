@@ -22,7 +22,7 @@ body {
 }
 
 .form-container {
-    flex: 10;
+    flex: 1;
     padding: 50px;
     display: flex;
     flex-direction: column;

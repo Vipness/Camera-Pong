@@ -161,13 +161,12 @@ function animateCamera() {
     cameraCtx.drawImage(video, 0, 0, camera.width, camera.height);
     const imgData = cameraCtx.getImageData(0, 0, camera.width, camera.height);
     imgData.willReadFrequently = true;
-    // console.log(imgData.data[0], imgData.data[1], imgData.data[2]);
 
     const locations = getLocationsWithColor(imgData, color);
     if (locations.length > 0) {
         const center = average(locations);
         playerPaddle.playerMove(center.y);
-        drawCircle(cameraCtx, center); // draw circle at center of pen
+        drawCircle(cameraCtx, center);
     }
 
     if (isAnimating) window.requestAnimationFrame(animateCamera);
