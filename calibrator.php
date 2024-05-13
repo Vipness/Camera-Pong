@@ -14,7 +14,7 @@
 <body>
     <header>
         <h1>Color calibrator</h1>
-        <p class="instruction">Place your desired color in the top right corner, marked with yellow</p>
+        <p class="instruction">Place your desired color in the top right corner marked with yellow</p>
         <p class="subtitle">Remain still for <span id="timerNum">3</span></p>
     </header>
     <div class="wrapper">
