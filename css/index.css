@@ -23,6 +23,7 @@ body::-webkit-scrollbar {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 25px;
 }
 
 h1,
@@ -43,7 +44,6 @@ h2 {
 .buttons a,
 .settings-buttons a {
     border-radius: 5px;
-    padding: 15px;
     cursor: pointer;
     padding: 15px 50px;
     text-align: center;
@@ -113,13 +113,24 @@ h2 {
 
 .roundsSetting {
     display: flex;
-    gap: 20px;
+    gap: 5px 20px;
     margin-bottom: 10px;
 }
 
 .roundsSetting span {
     color: var(--text);
     margin-left: 5px;
+}
+
+@media all and (max-width: 392px) {
+    .roundsSetting {
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .roundsSetting>div {
+        align-self: center;
+    }
 }
 
 /*********** Baseline, reset range styles ***********/
@@ -227,14 +238,19 @@ input[type="range"]::-moz-range-thumb {
 .settings-buttons {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .settings-buttons a {
     padding: 10px 35px;
     font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
 .settings-buttons .btnPlay {
-    flex: 1;
-    padding-top: 12px;
+    flex: 3;
+    min-width: fit-content;
 }
