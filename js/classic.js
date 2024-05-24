@@ -10,12 +10,26 @@ let user = sessionStorage.getItem("user") == "true";
 if (sessionStorage.getItem("color")) color = JSON.parse(sessionStorage.getItem("color"));
 
 const wrapper = document.querySelector(".wrapper");
+const scoreElem = document.querySelector(".score");
 const playerScoreElem = document.querySelector("#player-score");
 const computerScoreElem = document.querySelector("#computer-score");
 const numOfRounds = sessionStorage.getItem("numOfRounds");
+const resultsBox = document.querySelector(".resultsBox");
 
 canvas.width = 640;
 canvas.height = 480;
+
+if (window.innerWidth <= wrapper.offsetWidth + 20 || window.innerHeight <= wrapper.offsetHeight + 20) {
+    canvas.height = window.innerHeight * 0.75;
+    canvas.width = canvas.height * (4 / 3);
+    wrapper.style.marginTop = `${scoreElem.offsetHeight / 1.5}px`;
+    resultsBox.style.marginTop = `${scoreElem.offsetHeight / 2}px`;
+}
+
+window.addEventListener('orientationchange', () => {
+    location.reload();
+});
+
 clearCanvas();
 reset();
 
@@ -48,7 +62,7 @@ function stopGame(playerScore, computerScore) {
     canvas.remove();
     if (camera != null) camera.remove();
 
-    document.querySelector(".resultsBox").style.display = "flex";
+    resultsBox.style.display = "flex";
     document.querySelector("#winner").textContent = playerScore >= computerScore ? "You win!" : "You lose!";
 
     let countDownTimer = 5;
@@ -144,7 +158,7 @@ function createCamera() {
 }
 
 function handlePermDenied() {
-    canvas.style.cssText = "background-color: var(--secondary)";
+    canvas.style.backgroundColor = "var(--secondary)";
     canvas.addEventListener("mousemove", (event) => {
         playerPaddle.playerMove(event.offsetY);
     })
