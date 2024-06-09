@@ -15,11 +15,13 @@ body {
 }
 
 .wrapper {
+    position: relative;
     background-color: var(--secondary);
     border-radius: 8px;
     display: flex;
     color: var(--text);
     width: 450px;
+    overflow: hidden;
 }
 
 .form-container {
@@ -28,10 +30,13 @@ body {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    transition: transform 0.25s ease-out;
+    transform: translateX(0);
 }
 
 .form-container:not(.active) {
-    display: none;
+    position: absolute;
+    transform: translateX(600px);
 }
 
 #welcome {
