@@ -53,8 +53,7 @@
             $stmt->bind_param("sss", $email, $password, $username);
 
             if ($stmt->execute()) {
-                $_SESSION['username'] = $username;
-                header("Location: ./index.php");
+                header("Location: ./login.php");
             } 
             else { echo "Error: " . $add . "<br>" . $conn->error; }
         } 
